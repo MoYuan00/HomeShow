@@ -1,5 +1,10 @@
 package bean;
 
+import util.C3P0JdbcUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 public class Reply {
     private int replyid;
     private int messageid;
@@ -9,6 +14,38 @@ public class Reply {
     private String email;
     private String phonenum;
     private String time;
+
+    /**
+     *  添加一条回复
+     */
+    public Reply addReply(){
+        System.out.println("Reply.AddReplyAction()");
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            String query = "INSERT INTO t_reply(messageid,title,content,username,email,phonenum,`time`) VALUES(?,?,?,?,?,?,NOW())";
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, messageid);
+            pstmt.setString(2, title);
+            pstmt.setString(3, content);
+            pstmt.setString(4, username);
+            pstmt.setString(5, email);
+            pstmt.setString(6, phonenum);
+            int re = pstmt.executeUpdate();
+            if(re > 0){
+                return this;
+            }
+            // if no error back to message
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt, null);
+        }
+        System.out.println("add reply error");
+        return null;
+    }
+
 
 
     public String getTime() {

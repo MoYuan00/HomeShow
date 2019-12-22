@@ -15,30 +15,6 @@ public class User {
     private String username;
     private String password;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     /**
      * 查询密码和用户名是否匹配
      * @return 成功返回用户，失败返回null
@@ -64,8 +40,8 @@ public class User {
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
-			C3P0JdbcUtil.release(conn, pstmt, rs);
-		}
+            C3P0JdbcUtil.release(conn, pstmt, rs);
+        }
         System.out.println("失败！");
         return null;// 失败
     }
@@ -97,4 +73,30 @@ public class User {
         System.out.println("添加失败！");
         return null;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }
