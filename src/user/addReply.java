@@ -33,7 +33,7 @@ public class addReply extends HttpServlet {
 
         try{
             conn = C3P0JdbcUtil.getConnection();
-            String query = "INSERT INTO testdemo.t_reply(messageid,title,content,username,email,phonenum,`time`) VALUES(?,?,?,?,?,?,NOW())";
+            String query = "INSERT INTO t_reply(messageid,title,content,username,email,phonenum,`time`) VALUES(?,?,?,?,?,?,NOW())";
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, r.getMessageid());
             pstmt.setString(2, r.getTitle());
