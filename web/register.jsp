@@ -63,7 +63,7 @@
                         %>
 
                         <button class="btn btn-general btn-blue" role="button">Register</button>
-                        <button class="btn btn-general btn-white" type="button" style="float: right;" onclick = "window.location.href = '${path}index.jsp'">Back</button>
+                        <button class="btn btn-general btn-white" type="button" style="float: right;" onclick = "window.location.href = '${path}index.jsp'">Login</button>
 
                     </form>
                 </div>
