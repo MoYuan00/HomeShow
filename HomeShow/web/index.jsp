@@ -56,7 +56,7 @@
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
 				<%if (session.getAttribute("un") != null) {%>
 					<li>
-						<a rel="nofollow" href="log/toLogout" class="dropdown-item">
+						<a rel="nofollow" href="user/logout" class="dropdown-item">
 							<div class="notification">
 								<div class="notification-content"><i class="fa fa-power-off"></i>
 									登出

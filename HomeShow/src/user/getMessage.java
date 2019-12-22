@@ -64,7 +64,9 @@ public class getMessage extends HttpServlet {
                 repliesList.add(replies);
             }
             HttpSession session = request.getSession();
+            System.out.println(messages);
             session.setAttribute("messages", messages);
+            System.out.println(repliesList);
             session.setAttribute("repliesList", repliesList);
             System.out.println("get messages success!");
             response.sendRedirect(request.getContextPath() + "/messageBoard.jsp");

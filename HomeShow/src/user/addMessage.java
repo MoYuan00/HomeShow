@@ -32,7 +32,7 @@ public class addMessage extends HttpServlet {
         PreparedStatement pstmt = null;
         try{
             conn = C3P0JdbcUtil.getConnection();
-            String query = "INSERT INTO testdemo.t_message(title,content,username,email,phonenum,`time`) VALUES(?,?,?,?,?,NOW())";
+            String query = "INSERT INTO t_message(title,content,username,email,phonenum,`time`) VALUES(?,?,?,?,?,NOW())";
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1,title);
             pstmt.setString(2,content);
