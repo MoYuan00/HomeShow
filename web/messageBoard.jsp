@@ -18,7 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
 
-    <title>message board</title>
+    <title>留言板</title>
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <!-- global stylesheets -->
@@ -36,7 +36,7 @@
 <body>
 
 <!--====================================================
-                         MAIN NAVBAR
+                         MAIN NAV BAR
 ======================================================-->
 <header class="header">
     <nav class="navbar navbar-expand-lg ">
@@ -71,14 +71,15 @@
                     <div class="photo">
                         <%
                             request.setAttribute("NAME", session.getAttribute("un"));
-                            if (session.getAttribute("un") != null){
+                            if (session.getAttribute("un") != null) {
                         %>
-                        <img src="img/head.png" alt="..." class="img-fluid rounded-circle" style="height: 50px; width: 50px;">
+                        <img src="img/head.png" alt="..." class="img-fluid rounded-circle"
+                             style="height: 50px; width: 50px;">
                         <%
-                        }
-                        else {
+                        } else {
                         %>
-                        <img src="i¨mg/work/3.jpg" alt="..." class="img-fluid rounded-circle" style="height: 50px; width: 50px;">
+                        <img src="i¨mg/work/3.jpg" alt="..." class="img-fluid rounded-circle"
+                             style="height: 50px; width: 50px;">
                         <%
                             }
                         %>
@@ -251,14 +252,15 @@
                 <div class="photo">
                     <%
                         request.setAttribute("NAME", session.getAttribute("un"));
-                        if (session.getAttribute("un") != null){
+                        if (session.getAttribute("un") != null) {
                     %>
-                    <img src="img/head.png" alt="..." class="img-fluid rounded-circle" style="height: 50px; width: 50px;">
+                    <img src="img/head.png" alt="..." class="img-fluid rounded-circle"
+                         style="height: 50px; width: 50px;">
                     <%
-                    }
-                    else {
+                    } else {
                     %>
-                    <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle" style="height: 50px; width: 50px;">
+                    <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle"
+                         style="height: 50px; width: 50px;">
                     <%
                         }
                     %>
@@ -287,19 +289,21 @@
         </ul>
     </nav>
 
+    <%--    主要内容从这里开始 --%>
     <div class="content-inner chart-cont">
-
         <!--***** CONTENT *****-->
         <div class="container">
+            <%--            一行 --%>
             <div class="row">
+                <!-- 显示留言标题的面板 和 点击留言 （左边的导航栏）-->
                 <div class="col-md-4">
                     <nav class="nav vert-tab flex-column">
-                        <%--留言--%>
+                        <%-- 点击可以留言 --%>
                         <a class="nav-link tab-faq" href="#lMessage" data-toggle="modal" style="border-style: outset">
-                            <h3> Leave Message </h3>
+                            <h3> 点击留言 </h3>
                             <small>I'd like to hear your voice.</small>
                         </a>
-                        <%--留言navi--%>
+                        <%--留言的 弹出窗口 --%>
                         <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lMessage"
                              class="modal fade" style="display: none;">
                             <div class="modal-dialog">
@@ -371,229 +375,235 @@
                             </div>
                         </div>
                         <%--显示留言标题--%>
-                        <%
-                            request.setAttribute("messagesList", session.getAttribute("messages"));
-                        %>
-                        <c:forEach var="s_message" items="${messagesList}" varStatus="status">
+                        <c:forEach var="s_message" items="${messages}" varStatus="status">
                             <a class="nav-link tab-faq js-scroll-trigger" href="#MSG${status.index}">
                                 <h3><i class="fa fa-dot-circle-o"></i>
-                                    <c:if test="${s_message.getTitle().length()>14}">
+                                    <c:if test="${s_message != null && s_message.getTitle().length() > 14 }">
                                         ${s_message.getTitle().substring(0,15)}...
                                     </c:if>
                                     <c:if test="${s_message.getTitle().length()<15}">
                                         ${s_message.getTitle()}
                                     </c:if>
                                 </h3>
-                                <small>${s_message.getContent().substring(0,20)}...</small>
+                                <c:if test="${s_message.getContent() != null && s_message.getContent().length() > 20}">
+                                    <small>${s_message.getContent().substring(0,20)}...</small>
+                                </c:if>
+                                <c:if test="s_message == null || s_message < 20">
+                                    <small>${s_message.getContent()}</small>
+                                </c:if>
                             </a>
                         </c:forEach>
-
                     </nav>
                 </div>
-                <%--显示留言--%>
+
+                <%--显示所有的留言的面板--%>
                 <div class="col-md-8">
-                    <c:forEach var="s_message" items="${messagesList}" varStatus="status">
-                    <div class="faq-cont" id="MSG${status.index}">
-                        <div class="faq-heading-cont">
-                            <!--<h3><i class="fa fa-power-off"></i> Basic Question</h3>-->
-                        </div>
-                        <div class="panel-group" id="accordion-${status.index}">
-                                <%--message--%>
-                            <div class="panel panel-default panel-faq">
-                                <div class="panel-heading">
-                                    <a data-toggle="collapse" data-parent="#accordion-${status.index}" href="#faq-sub-cat${s_message.getId()}">
-                                        <h4 class="panel-title"> <i class="fa fa-dot-circle-o"></i>
-                                                ${status.index+1} ${s_message.getTitle()}
-                                            <span class="pull-right"><i class="fa fa-plus"></i></span>
-                                        </h4>
-                                    </a>
-                                </div>
-                                <div id="faq-sub-cat${s_message.getId()}" class="panel-collapse active">
-                                    <div class="panel-body">
-                                        <ul>
-                                            <li class="list-group-item">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <img src="img/avatar-2.jpg" class="img-circle img-fluid"
-                                                             alt=""/></div>
-                                                    <div class=" col-md-10">
-                                                        <div>
-                                                            <div class="mic-info">
-                                                                By: <a href="#">${s_message.getUsername()}</a>
-                                                                at ${s_message.getTime()}
+                    <!-- 遍历所有的留言 -->
+                    <c:forEach var="s_message" items="${messages}" varStatus="status">
+                        <div class="faq-cont" id="MSG${status.index}">
+                            <div class="faq-heading-cont">
+                                <!--<h3><i class="fa fa-power-off"></i> Basic Question</h3>-->
+                            </div>
+                            <div class="panel-group" id="accordion-${status.index}">
+                                    <%--message--%>
+                                <div class="panel panel-default panel-faq">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion-${status.index}"
+                                           href="#faq-sub-cat${s_message.getId()}">
+                                            <h4 class="panel-title"><i class="fa fa-dot-circle-o"></i>
+                                                    ${status.index+1} ${s_message.getTitle()}
+                                                <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div id="faq-sub-cat${s_message.getId()}" class="panel-collapse active">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li class="list-group-item">
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <img src="img/avatar-2.jpg" class="img-circle img-fluid"
+                                                                 alt=""/></div>
+                                                        <div class=" col-md-10">
+                                                            <div>
+                                                                <div class="mic-info">
+                                                                    By: <a href="#">${s_message.getUsername()}</a>
+                                                                    at ${s_message.getTime()}
+                                                                </div>
                                                             </div>
+                                                            <div class="comment-text">
+                                                                    ${s_message.getContent()}
+                                                            </div>
+                                                            <%if (session.getAttribute("un") != null) {%>
+                                                            <div style="float: right">
+                                                                <a href="#"
+                                                                   class="btn btn-sm btn-hover btn-primary"><span
+                                                                        class="fa fa-edit"
+                                                                        style="padding-right:3px;"></span>edit</a>
+                                                                <a href="user/deleteMessage?id=${s_message.getId()}"
+                                                                   class="btn btn-sm btn-hover btn-danger"><span
+                                                                        class="fa fa-remove"
+                                                                        style="padding-right:3px;"></span>delete</a>
+                                                            </div>
+                                                            <% } %>
                                                         </div>
-                                                        <div class="comment-text">
-                                                                ${s_message.getContent()}
-                                                        </div>
-                                                        <%if (session.getAttribute("un") != null) {%>
-                                                        <div style="float: right">
-                                                            <a href="#"
-                                                               class="btn btn-sm btn-hover btn-primary"><span
-                                                                    class="fa fa-edit"
-                                                                    style="padding-right:3px;"></span>edit</a>
-                                                            <a href="user/deleteMessage?id=${s_message.getId()}"
-                                                               class="btn btn-sm btn-hover btn-danger"><span
-                                                                    class="fa fa-remove"
-                                                                    style="padding-right:3px;"></span>delete</a>
-                                                        </div>
-                                                        <% } %>
                                                     </div>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <%
-                                request.setAttribute("replyList", session.getAttribute("repliesList"));
-                            %>
-                            <c:forEach var="replies" items="${replyList}" varStatus="status">
-                                <c:forEach var="s_reply" items="${replies}" varStatus="status">
-                                    <c:if test="${s_reply.getMessageid() == s_message.getId()}">
-                                        <%--SHOW REPLY--%>
-                                        <div class="panel panel-default panel-faq">
-                                            <div class="panel-heading">
-                                                <a data-toggle="collapse" data-parent="#accordion-${status.index}" href="#faq-sub-cat${status.index}-${s_reply.getReplyid()}">
-                                                    <h4 class="panel-title">
-                                                        ${s_reply.getTitle()}
-                                                        <span class="pull-right"><i class="fa fa-plus"></i></span>
-                                                    </h4>
-                                                </a>
-                                            </div>
-                                            <div id="faq-sub-cat${status.index}-${s_reply.getReplyid()}" class="panel-collapse collapse">
-                                                <div class="panel-body" style="padding-bottom: 0;">
-                                                    By: <a href="#">${s_reply.getUsername()}</a>
-                                                       at ${s_reply.getTime()}
+                                <c:forEach var="replies" items="${repliesList}" varStatus="status">
+                                    <c:forEach var="s_reply" items="${replies}" varStatus="status">
+                                        <c:if test="${s_reply.getMessageid() == s_message.getId()}">
+                                            <%--SHOW REPLY--%>
+                                            <div class="panel panel-default panel-faq">
+                                                <div class="panel-heading">
+                                                    <a data-toggle="collapse" data-parent="#accordion-${status.index}"
+                                                       href="#faq-sub-cat${status.index}-${s_reply.getReplyid()}">
+                                                        <h4 class="panel-title">
+                                                                ${s_reply.getTitle()}
+                                                            <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                                        </h4>
+                                                    </a>
                                                 </div>
-                                                <div class="panel-body" style="padding-top: 0;">
-                                                    ${s_reply.getContent()}
+                                                <div id="faq-sub-cat${status.index}-${s_reply.getReplyid()}"
+                                                     class="panel-collapse collapse">
+                                                    <div class="panel-body" style="padding-bottom: 0;">
+                                                        By: <a href="#">${s_reply.getUsername()}</a>
+                                                        at ${s_reply.getTime()}
+                                                    </div>
+                                                    <div class="panel-body" style="padding-top: 0;">
+                                                            ${s_reply.getContent()}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </c:if>
+                                        </c:if>
+                                    </c:forEach>
                                 </c:forEach>
-                            </c:forEach>
 
 
-                            <div class="panel panel-default panel-faq">
-                                <a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-compose">
-                                         Reply</a>
-                                <!-- Modal -->
-                                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
-                                     id="myModal" class="modal fade" style="display: none;">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <!--***** REPLY INFO *****-->
-                                            <div class="col-md-12">
-                                                <div class="card form" id="form1">
-                                                    <div class="card-header">
-                                                        <h3 style="display: inline"><i
-                                                                class="fa fa-commenting-o"></i>
-                                                            Send Reply</h3>
-                                                        <button aria-hidden="true" data-dismiss="modal"
-                                                                class="close"
-                                                                type="button">×
-                                                        </button>
+                                <div class="panel panel-default panel-faq">
+                                    <a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-compose">
+                                        Reply</a>
+                                    <!-- Modal -->
+                                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+                                         id="myModal" class="modal fade" style="display: none;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!--***** REPLY INFO *****-->
+                                                <div class="col-md-12">
+                                                    <div class="card form" id="form1">
+                                                        <div class="card-header">
+                                                            <h3 style="display: inline"><i
+                                                                    class="fa fa-commenting-o"></i>
+                                                                Send Reply</h3>
+                                                            <button aria-hidden="true" data-dismiss="modal"
+                                                                    class="close"
+                                                                    type="button">×
+                                                            </button>
+                                                        </div>
+                                                        <form action="user/addReply">
+                                                            <input type="hidden" value="${s_message.getId()}"
+                                                                   name="rmsgId">
+                                                            <div class="form-group">
+                                                                <label for="title">Title</label>
+                                                                <input type="text" class="form-control" id="title"
+                                                                       aria-describedby="title" name="rTitle"
+                                                                       placeholder="Enter title">
+                                                            </div>
+
+                                                            <div class="form-group" style="margin-top: 0;">
+                                                                <label for="exampleTextarea">Content</label>
+                                                                <textarea class="form-control" id="exampleTextarea"
+                                                                          rows="8" name="rContent"
+                                                                          placeholder="Let me hear your thought"></textarea>
+                                                            </div>
+
+                                                            <div class="row mt-3">
+                                                                <div class="col-md-12">
+                                                                    <div class="card-header">
+                                                                        <h3><i class="fa fa-user-circle"></i> User Info
+                                                                        </h3>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row" style="margin-top: 20px;">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="name">Full Name</label>
+                                                                        <input type="text" class="form-control"
+                                                                               id="Name" name="rName"
+                                                                               aria-describedby="emailHelp"
+                                                                               placeholder="Enter name">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="email">Email address</label>
+                                                                        <input type="email" class="form-control"
+                                                                               id="Email" name="rEmail"
+                                                                               aria-describedby="emailHelp"
+                                                                               placeholder="Enter email">
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="name">Contact Num</label>
+                                                                        <input type="number" class="form-control"
+                                                                               name="rNumber"
+                                                                               id="number" aria-describedby="emailHelp"
+                                                                               placeholder="Enter number">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <button type="submit" class="btn btn-general btn-blue mr-2">
+                                                                Submit
+                                                            </button>
+                                                            <button type="reset" class="btn btn-general btn-white">
+                                                                Cancel
+                                                            </button>
+                                                        </form>
                                                     </div>
-                                                    <form action="user/addReply">
-                                                        <input type="hidden" value="${s_message.getId()}" name="rmsgId">
-                                                        <div class="form-group">
-                                                            <label for="title">Title</label>
-                                                            <input type="text" class="form-control" id="title"
-                                                                   aria-describedby="title" name="rTitle"
-                                                                   placeholder="Enter title">
-                                                        </div>
-
-                                                        <div class="form-group" style="margin-top: 0;">
-                                                            <label for="exampleTextarea">Content</label>
-                                                            <textarea class="form-control" id="exampleTextarea"
-                                                                      rows="8" name="rContent"
-                                                                      placeholder="Let me hear your thought"></textarea>
-                                                        </div>
-
-                                                        <div class="row mt-3">
-                                                            <div class="col-md-12">
-                                                                <div class="card-header">
-                                                                    <h3><i class="fa fa-user-circle"></i> User Info
-                                                                    </h3>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row" style="margin-top: 20px;">
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="name">Full Name</label>
-                                                                    <input type="text" class="form-control"
-                                                                           id="Name" name="rName"
-                                                                           aria-describedby="emailHelp"
-                                                                           placeholder="Enter name">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="email">Email address</label>
-                                                                    <input type="email" class="form-control"
-                                                                           id="Email" name="rEmail"
-                                                                           aria-describedby="emailHelp"
-                                                                           placeholder="Enter email">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-md-6">
-                                                                <div class="form-group">
-                                                                    <label for="name">Contact Num</label>
-                                                                    <input type="number" class="form-control"
-                                                                           name="rNumber"
-                                                                           id="number" aria-describedby="emailHelp"
-                                                                           placeholder="Enter number">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <button type="submit" class="btn btn-general btn-blue mr-2">
-                                                            Submit
-                                                        </button>
-                                                        <button type="reset" class="btn btn-general btn-white">
-                                                            Cancel
-                                                        </button>
-                                                    </form>
                                                 </div>
                                             </div>
+                                            <!-- /.modal-content -->
                                         </div>
-                                        <!-- /.modal-content -->
-                                    </div>
 
-                                    <!--</div>-->
+                                    </div>
 
                                 </div>
                             </div>
 
                         </div>
-                    </div>
+
+                        <br><!-- 给每条留言都添加间隔 -->
                     </c:forEach>
-                    <br>
+                </div><!-- 一条留言信息 -->
 
+            </div><!-- row end -->
 
-                </div>
-                <br>
-            </div>
-        </div>
+        </div><!-- 留言面板结束 -->
+
     </div>
+</div>
+</div>
 
 </div>
 </div>
 
 <!--Global Javascript -->
-<script src="js/jquery.min.js"></script>
-<script src="js/popper/popper.min.js"></script>
-<script src="js/tether.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.cookie.js"></script>
-<script src="js/jquery.easing.min.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/chart.min.js"></script>
-<script src="js/front.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper/popper.min.js"></script>
+<script type="text/javascript" src="js/tether.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/chart.min.js"></script>
+<script type="text/javascript" src="js/front.js"></script>
 
 <!--Core Javascript -->
 <script>
@@ -625,7 +635,6 @@
 </script>
 <script>
     (function ($) {
-
         var mn = $(".vert-tab");
         var mns = "vert-tab-scrolled";
         $(window).scroll(function () {
@@ -635,8 +644,6 @@
                 mn.removeClass(mns);
             }
         });
-
-        "use strict";
         $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
             if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
                 var target = $(this.hash);
@@ -649,18 +656,6 @@
                 }
             }
         });
-
-        // $('.collapse').on('show.bs.collapse', function () {
-        //     var id = $(this).attr('id');
-        //     $('a[href="#' + id + '"]').closest('.panel-heading').addClass('active-faq');
-        //     $('a[href="#' + id + '"] .panel-title span')jsp('<i class="fa fa-minus"></i>');
-        // });
-        // $('.collapse').on('hide.bs.collapse', function () {
-        //     var id = $(this).attr('id');
-        //     $('a[href="#' + id + '"]').closest('.panel-heading').removeClass('active-faq');
-        //     $('a[href="#' + id + '"] .panel-title span')jsp('<i class="fa fa-plus"></i>');
-        // });
-
     })(jQuery);
 </script>
 </body>

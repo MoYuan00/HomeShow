@@ -42,7 +42,7 @@
             <div class="col-md-12 ">
                 <div class="contact-h-cont">
                   <h3 class="text-center">家乡展示管理平台<img src="" class="img-fluid" alt=""></h3><br>
-                  <form action="<%=basePath%>login/toLogin" method="post">
+                  <form action="<%=basePath%>user/login" method="post">
                     <div class="form-group">
                       <label for="username">Username</label>
                       <input type="text" class="form-control" id="username" placeholder="Enter Username" value="${username}" name="username">
@@ -63,7 +63,8 @@
 					%>
 
                     <button class="btn btn-general btn-blue" role="button">Login</button>
-                    <button class="btn btn-general btn-white" type="button" style="float: right;" onclick = "window.location.href = '${path}index.jsp'">Back</button>
+                    <button class="btn btn-general btn-white" type="button" style="float: right;"
+                            onclick = "window.location.href = '${path}index.jsp'">Back</button>
                     
                   </form>
                 </div>

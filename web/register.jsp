@@ -42,7 +42,7 @@
             <div class="col-md-12 ">
                 <div class="contact-h-cont">
                     <h3 class="text-center">家乡展示管理平台<img src="" class="img-fluid" alt=""></h3><br>
-                    <form action="<%=basePath%>login/toLogin" method="post">
+                    <form action="<%=basePath%>user/register" method="post">
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="text" class="form-control" id="username" placeholder="Enter Username" value="${username}" name="username">
