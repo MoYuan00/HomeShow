@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
 
-    <title> 家乡简介 </title>
+    <title> 特色介绍 </title>
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <!-- global stylesheets -->
@@ -126,21 +126,21 @@
                                 <p> <%=session.getAttribute("content")%> </p>
 
                                 <div class="row mt-3">
-                                <%
-                                List< String > list =(ArrayList< String >) session.getAttribute("list");
-                                if(list != null){
-                                String html = "";
-                                    for (String img : list) {
-                                    %>
-                                        <div class="col-md-4 col-sm-6 mt-1">
-                                            <div class="box-4">
-                                                <img src="<%=img%>">
-                                            </div>
-                                        </div>
                                     <%
-                                    }
-                                }
-                                %>
+                                        List< String > list =(ArrayList< String >) session.getAttribute("list");
+                                        if(list != null){
+                                            String html = "";
+                                            for (String img : list) {
+                                    %>
+                                    <div class="col-md-4 col-sm-6 mt-1">
+                                        <div class="box-4">
+                                            <img src="<%=img%>">
+                                        </div>
+                                    </div>
+                                    <%
+                                            }
+                                        }
+                                    %>
                                 </div>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="buzz">

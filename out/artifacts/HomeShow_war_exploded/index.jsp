@@ -109,7 +109,7 @@
             <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>首页</a></li>
             <li><a href="user/getProfile"> <i class="fa fa-user-o"></i>家乡简介</a></li>
             <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>特色介绍</a></li>
-            <li><a href="user/getMessage"> <i class="fa fa-user-o"></i>个人简介</a></li>
+            <li><a href="user/getMessage"><i class="fa fa-user-o"></i>游客留言</a></li>
         </ul>
         <%}%>
     </nav>

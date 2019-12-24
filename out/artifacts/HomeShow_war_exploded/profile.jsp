@@ -128,15 +128,17 @@
                                 <div class="row mt-3">
                                 <%
                                 List< String > list =(ArrayList< String >) session.getAttribute("list");
+                                if(list != null){
                                 String html = "";
-                                for (String img : list) {
-                                %>
-                                    <div class="col-md-4 col-sm-6 mt-1">
-                                        <div class="box-4">
-                                            <img src="<%=img%>">
+                                    for (String img : list) {
+                                    %>
+                                        <div class="col-md-4 col-sm-6 mt-1">
+                                            <div class="box-4">
+                                                <img src="<%=img%>">
+                                            </div>
                                         </div>
-                                    </div>
-                                <%
+                                    <%
+                                    }
                                 }
                                 %>
                                 </div>
