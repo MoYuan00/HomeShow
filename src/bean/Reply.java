@@ -2,8 +2,12 @@ package bean;
 
 import util.C3P0JdbcUtil;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Reply {
     private int replyid;
@@ -14,6 +18,40 @@ public class Reply {
     private String email;
     private String phonenum;
     private String time;
+
+    /**
+     *  获取所有的回复信息
+     * @return
+     */
+    public List<Reply> getReplies(){
+        System.out.println("getMessage");
+        String query_reply = "SELECT * FROM t_reply";
+        List<Reply> replies = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt_reply = null;
+        ResultSet rs_reply = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            //  评论的回复
+            pstmt_reply = conn.prepareStatement(query_reply);
+            rs_reply = pstmt_reply.executeQuery();
+            while(rs_reply.next()){
+                Reply r = new Reply();
+                r.setReplyid(rs_reply.getInt("replyid"));
+                r.setMessageid(rs_reply.getInt("messageid"));
+                r.setTitle(rs_reply.getString("title"));
+                r.setContent(rs_reply.getString("content"));
+                r.setTime(rs_reply.getString("time"));
+                r.setUsername(rs_reply.getString("username"));
+                replies.add(r);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt_reply, null);
+        }
+        return replies;
+    }
 
     /**
      *  添加一条回复

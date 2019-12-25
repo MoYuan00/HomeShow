@@ -17,15 +17,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "getProfile", urlPatterns = "/user/getProfile")
-public class getProfile extends HttpServlet {
+@WebServlet(name = "getProfileFood", urlPatterns = "/user/getProfileFood")
+public class getFood extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String query = "SELECT * FROM t_profile where type = 'jxjj' limit 1";
-        String query_reply = "SELECT * FROM t_images WHERE type = 'jxjj'";
+        String query = "SELECT * FROM t_profile where type = 'food' limit 1";
+        String query_reply = "SELECT * FROM t_images WHERE type = 'food'";
         Connection conn = null;
         PreparedStatement pstmt = null;
         PreparedStatement pstmt_reply = null;

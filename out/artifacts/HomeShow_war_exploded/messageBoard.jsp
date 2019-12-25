@@ -1,10 +1,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="Java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" import="java.lang.*" %>
+<%@ page import="bean.Message" %>
+<%@ page import="bean.Reply" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     request.setAttribute("path", basePath);
+
+    /*
+        获取留言
+     */
+    Message message = new Message();
+    pageContext.setAttribute("messages", message.getMessages());
+    /*
+     *  获取留言的回复信息
+     */
+    Reply reply = new Reply();
+    pageContext.setAttribute("replies", reply.getReplies());
 
 %>
 
@@ -87,7 +100,7 @@
                             </c:choose>
                         </div>
                     </a>
-<%--                    点击头像的下拉菜单--%>
+                    <%--                    点击头像的下拉菜单--%>
                     <ul aria-labelledby="profile" class="dropdown-menu profile">
                         <li>
                             <a rel="nofollow" href="#" class="dropdown-item d-flex">
@@ -180,11 +193,20 @@
 
         <!-- 左边的导航栏的导航部分 -->
         <ul class="list-unstyled">
-            <li class="active">
-                <a href="index.jsp"><i class="icon-home"></i>主页</a>
-            </li>
-            <li><a href="profile.jsp"> <i class="fa fa-user-o "></i>美食</a></li>
-            <li><a href="user/getMessage"> <i class="icon-mail"></i>留言板</a></li>
+            <c:choose>
+                <c:when test="${sessionScope.un != null}">
+                    <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>美景管理</a></li>
+                    <li><a href="user/getProfile"> <i class="fa fa-user-o"></i>美食管理</a></li>
+                    <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>风土人情管理</a></li>
+                    <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>留言管理</a></li>
+                </c:when>
+                <c:otherwise>
+                    <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>首页</a></li>
+                    <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>家乡简介</a></li>
+                    <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>特色介绍</a></li>
+                    <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>游客留言</a></li>
+                </c:otherwise>
+            </c:choose>
         </ul>
     </nav>
 
@@ -311,8 +333,10 @@
                             <div class="faq-heading-cont">
                                 <!--<h3><i class="fa fa-power-off"></i> Basic Question</h3>-->
                             </div>
+                                <%--                            一条留言--%>
                             <div class="panel-group" id="accordion-${status.index}">
                                     <%--message--%>
+                                    <%--                                留言内容--%>
                                 <div class="panel panel-default panel-faq">
                                     <div class="panel-heading">
                                         <a data-toggle="collapse" data-parent="#accordion-${status.index}"
@@ -360,34 +384,32 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <c:forEach var="replies" items="${repliesList}" varStatus="status">
-                                    <c:forEach var="s_reply" items="${replies}" varStatus="status">
-                                        <c:if test="${s_reply.getMessageid() == s_message.getId()}">
-                                            <%--SHOW REPLY--%>
-                                            <div class="panel panel-default panel-faq">
-                                                <div class="panel-heading">
-                                                    <a data-toggle="collapse" data-parent="#accordion-${status.index}"
-                                                       href="#faq-sub-cat${status.index}-${s_reply.getReplyid()}">
-                                                        <h4 class="panel-title">
-                                                                ${s_reply.getTitle()}
-                                                            <span class="pull-right"><i class="fa fa-plus"></i></span>
-                                                        </h4>
-                                                    </a>
+                                    <%--一条留言的回复（每条留言都可以有多条回复）--%>
+                                <c:forEach var="s_reply" items="${replies}" varStatus="status">
+                                    <c:if test="${s_reply.getMessageid().equals(s_message.getId())}">
+                                        <%--SHOW REPLY--%>
+                                        <div class="panel panel-default panel-faq">
+                                            <div class="panel-heading">
+                                                <a data-toggle="collapse" data-parent="#accordion-${status.index}"
+                                                   href="#faq-sub-cat${status.index}-${s_reply.getReplyid()}">
+                                                    <h4 class="panel-title">
+                                                            ${s_reply.getTitle()}
+                                                        <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div id="faq-sub-cat${status.index}-${s_reply.getReplyid()}"
+                                                 class="panel-collapse collapse">
+                                                <div class="panel-body" style="padding-bottom: 0;">
+                                                    By: <a href="#">${s_reply.getUsername()}</a>
+                                                    at ${s_reply.getTime()}
                                                 </div>
-                                                <div id="faq-sub-cat${status.index}-${s_reply.getReplyid()}"
-                                                     class="panel-collapse collapse">
-                                                    <div class="panel-body" style="padding-bottom: 0;">
-                                                        By: <a href="#">${s_reply.getUsername()}</a>
-                                                        at ${s_reply.getTime()}
-                                                    </div>
-                                                    <div class="panel-body" style="padding-top: 0;">
-                                                            ${s_reply.getContent()}
-                                                    </div>
+                                                <div class="panel-body" style="padding-top: 0;">
+                                                        ${s_reply.getContent()}
                                                 </div>
                                             </div>
-                                        </c:if>
-                                    </c:forEach>
+                                        </div>
+                                    </c:if>
                                 </c:forEach>
 
 

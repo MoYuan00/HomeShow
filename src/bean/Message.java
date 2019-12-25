@@ -1,5 +1,13 @@
 package bean;
 
+import util.C3P0JdbcUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Message {
     private int id;
     private String title;
@@ -8,6 +16,39 @@ public class Message {
     private String email;
     private String phonenum;
     private String time;
+
+    /**
+     * 獲取所有的留言信息
+     * @return
+     */
+    public List<Message> getMessages(){
+        System.out.println("Message.getMessage()");
+        String query = "SELECT * FROM t_message";
+        List<Message> messages = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+            while(rs.next()){
+                Message s = new Message();
+                s.setId(rs.getInt("messageid"));
+                s.setUsername(rs.getString("username"));
+                s.setContent(rs.getString("content"));
+                s.setTitle(rs.getString("title"));
+                s.setTime(rs.getString("time"));
+                messages.add(s);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt, rs);
+        }
+        return messages;
+    }
+
 
     @Override
     public String toString() {
