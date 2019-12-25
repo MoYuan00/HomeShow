@@ -23,14 +23,14 @@ public class Profile {
      */
     public Profile updateContent(){
         System.out.println("Profile.updateContent()");
-        String query = "update t_profile set content = ? where id =?";
+        String query = "update t_profile set content = ? where type = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try{
             conn = C3P0JdbcUtil.getConnection();
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, this.content);
-            pstmt.setInt(2, this.id);
+            pstmt.setString(2, this.type);
             int re = pstmt.executeUpdate();
             System.out.println("Profile.updateContent() 成功！");
             return this;

@@ -16,8 +16,8 @@
     request.setAttribute("path", basePath);
 
     Profile profile = new Profile();
-    String content = profile.getMJContent();
-    List<Images> replies = profile.getMJImages();
+    String content = profile.getFoodContent();
+    List<Images> replies = profile.getFoodImages();
     pageContext.setAttribute("content", content);
     pageContext.setAttribute("list", replies);
 %>
@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
 
-    <title>美景管理</title>
+    <title>美食管理</title>
     <link rel="shortcut icon" href="${path}img/favicon.ico">
 
     <!-- global stylesheets -->
@@ -128,13 +128,13 @@
                     <div class="tab" role="tabpanel">
                         <!-- Tab panes -->
                         <div class="tab-content tabs">
-                            <h2>美景管理</h2>
+                            <h2>美食管理</h2>
                             <div>
                                 <form action="${path}/addImages" method="post" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <label for="exampleFormControlFile1">添加图片：</label>
-                                        <input type="hidden" name="type" value="mj">
-                                        <input type="hidden" name="jumpPath" value="mjManager.jsp">
+                                        <input type="hidden" name="type" value="food">
+                                        <input type="hidden" name="jumpPath" value="foodManager.jsp">
                                         <input type="file" name="uploadFile" class="form-control-file"
                                                id="exampleFormControlFile1"
                                                accept="image/png, image/jpeg, image/gif, image/jpg">
@@ -152,8 +152,8 @@
                                         <textarea name="content" id="textarea" class="form-control-range text-area"
                                                   rows="7" cols="58">${pageScope.content}</textarea>
                                     </div>
-                                    <input type="hidden" name="jumpPath" value="mjManager.jsp">
-                                    <input type="hidden" name="type" value="mj">
+                                    <input type="hidden" name="jumpPath" value="foodManager.jsp">
+                                    <input type="hidden" name="type" value="food">
                                     <button type="submit" class="btn btn-primary">保存简介内容修改</button>
                                 </form>
                                 <div class="row mt-3">
@@ -170,7 +170,7 @@
                                                                 <input type="hidden" name="id"
                                                                        value="${image.getId()}">
                                                                 <input type="hidden" name="jumpPath"
-                                                                       value="mjManager.jsp">
+                                                                       value="foodManager.jsp">
                                                                 <button type="submit" class="btn btn-danger">删除图片
                                                                 </button>
                                                             </form>
