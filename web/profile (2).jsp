@@ -1,3 +1,6 @@
+<%--
+    个人信息页面 - 当前系统没有使用 - 没有个人信息查看和管理功能
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="Java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" import="java.lang.*" %>

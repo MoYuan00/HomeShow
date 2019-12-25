@@ -19,6 +19,31 @@ public class Profile {
     private String content;
 
     /**
+     * 更新简介的内容
+     */
+    public Profile updateContent(){
+        System.out.println("Profile.updateContent()");
+        String query = "update t_profile set content = ? where id =?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, this.content);
+            pstmt.setInt(2, this.id);
+            int re = pstmt.executeUpdate();
+            System.out.println("Profile.updateContent() 成功！");
+            return this;
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt, null);
+        }
+        return null;
+    }
+
+
+    /**
      * 获取家乡简介
      * @return
      */
@@ -30,7 +55,7 @@ public class Profile {
      * 获取家乡简介 的图片
      * @return
      */
-    public List<String> getJXJJImages(){
+    public List<Images> getJXJJImages(){
         return getImagesByType("jxjj");
     }
     /**
@@ -45,7 +70,7 @@ public class Profile {
      * 获取食物简介的 图片
      * @return
      */
-    public List<String> getFoodImages(){
+    public List<Images> getFoodImages(){
         return getImagesByType(FOOD);
     }
 
@@ -61,7 +86,7 @@ public class Profile {
      * 获取美景简介的 图片
      * @return
      */
-    public List<String> getMJImages(){
+    public List<Images> getMJImages(){
         return getImagesByType(MJ);
     }
 
@@ -77,7 +102,7 @@ public class Profile {
      * 获取风土人情简介的 图片
      * @return
      */
-    public List<String> getFTRQImages(){
+    public List<Images> getFTRQImages(){
         return getImagesByType(FTRQ);
     }
     /**
@@ -112,27 +137,8 @@ public class Profile {
      * @param type
      * @return
      */
-    private List<String> getImagesByType(String type){
-        String query_reply = "SELECT * FROM t_images WHERE type = '" + type + "'";
-        Connection conn = null;
-        PreparedStatement pstmt_reply = null;
-        ResultSet rs_reply = null;
-        List<String> replies = new ArrayList<>();
-        try{
-            conn = C3P0JdbcUtil.getConnection();
-            pstmt_reply = conn.prepareStatement(query_reply);
-            rs_reply = pstmt_reply.executeQuery();
-            while(rs_reply.next()){
-                String img = rs_reply.getString("img");
-                replies.add(img);
-            }
-            return replies;
-        }catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            C3P0JdbcUtil.release(conn, pstmt_reply, rs_reply);
-        }
-        return replies;
+    private List<Images> getImagesByType(String type){
+       return new Images().getImagesByType(type);
     }
 
 

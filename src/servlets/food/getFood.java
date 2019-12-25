@@ -1,7 +1,5 @@
-package user;
+package servlets.food;
 
-import bean.Message;
-import bean.Reply;
 import util.C3P0JdbcUtil;
 
 import javax.servlet.ServletException;

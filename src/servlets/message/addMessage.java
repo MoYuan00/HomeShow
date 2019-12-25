@@ -1,4 +1,4 @@
-package user;
+package servlets.message;
 
 import util.C3P0JdbcUtil;
 import util.dataUrl;

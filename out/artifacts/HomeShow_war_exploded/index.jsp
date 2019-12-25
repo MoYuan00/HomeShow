@@ -54,7 +54,7 @@
                     </a>
                 </div>
             </div>
-<%--            登录注册--%>
+            <%--            登录注册--%>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <c:choose>
                     <c:when test="${sessionScope.un != null}">
@@ -103,21 +103,7 @@
     <%--    侧边导航栏--%>
     <nav class="side-navbar">
         <!-- Sidebar Navidation Menus-->
-        <%if (session.getAttribute("un") != null) {%>
-        <ul class="list-unstyled">
-            <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>美景管理</a></li>
-            <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>美食管理</a></li>
-            <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>风土人情管理</a></li>
-            <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>留言管理</a></li>
-        </ul>
-        <%} else {%>
-        <ul class="list-unstyled">
-            <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>首页</a></li>
-            <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>家乡简介</a></li>
-            <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>特色介绍</a></li>
-            <li><a href="messageBoard.jsp"><i class="fa fa-user-o"></i>游客留言</a></li>
-        </ul>
-        <%}%>
+        <jsp:include page="nav-ul.jsp"/>
     </nav>
 
     <!--***** CONTENT INNER *****-->

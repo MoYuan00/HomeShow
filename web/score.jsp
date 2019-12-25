@@ -201,7 +201,7 @@
 
         <!--***** CONTENT *****-->
         <div class="row">
-            <%--<form action="<%=basePath%>user/showScore" method="post" style="width: 100%;max-width: 100%">--%>
+            <%--<form servlets="<%=basePath%>user/showScore" method="post" style="width: 100%;max-width: 100%">--%>
             <table class="table table-hover">
                 <thead>
                 <tr class="bg-info text-white">

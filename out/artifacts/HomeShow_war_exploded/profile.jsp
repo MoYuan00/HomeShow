@@ -2,6 +2,7 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.lang.*" %>
 <%@ page import="bean.Profile" %>
 <%@ page import="java.util.List" %>
+<%@ page import="bean.Images" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -9,7 +10,7 @@
 
     Profile profile = new Profile();
     String content = profile.getJXJJContent();
-    List<String> replies = profile.getJXJJImages();
+    List<Images> replies = profile.getJXJJImages();
     pageContext.setAttribute("content", content);
     pageContext.setAttribute("list", replies);
 %>
@@ -27,18 +28,18 @@
 
     <!-- global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/font-icon-style.css">
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="${path}css/bootstrap.min.css">
+    <link rel="stylesheet" href="${path}font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${path}css/font-icon-style.css">
+    <link rel="stylesheet" href="${path}css/style.default.css" id="theme-stylesheet">
 
     <!-- Core stylesheets -->
-    <link rel="stylesheet" href="css/ui-elements/card.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/ui-elements/timeline.css">
-    <link rel="stylesheet" href="css/profile.css">
-    <link rel="stylesheet" href="css/pages/gallery.css">
-    <link rel="stylesheet" href="css/apps/media.css">
+    <link rel="stylesheet" href="${path}css/ui-elements/card.css">
+    <link rel="stylesheet" href="${path}css/style.css">
+    <link rel="stylesheet" href="${path}css/ui-elements/timeline.css">
+    <link rel="stylesheet" href="${path}css/profile.css">
+    <link rel="stylesheet" href="${path}css/pages/gallery.css">
+    <link rel="stylesheet" href="${path}css/apps/media.css">
     <!-- jstl -->
     <%--<%@ taglib prefix="co" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 </head>
@@ -74,7 +75,7 @@
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <c:choose>
                     <c:when test="${sessionScope.un != null}">
-                        <a rel="nofollow" href="log/toLogout" class="dropdown-item">
+                        <a rel="nofollow" href="${path}log/toLogout" class="dropdown-item">
                             <div class="notification">
                                 <div class="notification-content">
                                     <i class="fa fa-power-off"></i>登出
@@ -83,7 +84,7 @@
                         </a>
                     </c:when>
                     <c:otherwise>
-                        <a rel="nofollow" href="login.jsp" class="dropdown-item">
+                        <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
                             <div class="notification">
                                 <div class="notification-content">
                                     <i class="fa fa-power-off"></i>登录
@@ -105,22 +106,7 @@
     <!--***** SIDE NAVBAR *****-->
     <nav class="side-navbar">
         <!-- Sidebar Navidation Menus-->
-        <ul class="list-unstyled">
-            <c:choose>
-                <c:when test="${sessionScope.un != null}">
-                        <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>美景管理</a></li>
-                        <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>美食管理</a></li>
-                        <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>风土人情管理</a></li>
-                        <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>留言管理</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>首页</a></li>
-                    <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>家乡简介</a></li>
-                    <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>特色介绍</a></li>
-                    <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>游客留言</a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
+        <jsp:include page="nav-ul.jsp"/>
     </nav>
 
     <!--***** CONTENT INNER *****-->
@@ -141,10 +127,10 @@
                                 <div class="row mt-3">
                                     <%--    简介图片--%>
                                     <div class="row mt-3">
-                                        <c:forEach var="imgPath" items="${pageScope.list}">
+                                        <c:forEach var="image" items="${pageScope.list}">
                                             <div class="col-md-4 col-sm-6 mt-1">
                                                 <div class="box-4">
-                                                    <img src="${imgPath}">
+                                                    <img src="${path}${image.getImg()}">
                                                 </div>
                                             </div>
                                         </c:forEach>
@@ -161,14 +147,14 @@
 </div>
 
 <!--Global Javascript -->
-<script src="js/jquery.min.js"></script>
-<script src="js/popper/popper.min.js"></script>
-<script src="js/tether.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.cookie.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/chart.min.js"></script>
-<script src="js/front.js"></script>
+<script src="${path}js/jquery.min.js"></script>
+<script src="${path}js/popper/popper.min.js"></script>
+<script src="${path}js/tether.min.js"></script>
+<script src="${path}js/bootstrap.min.js"></script>
+<script src="${path}js/jquery.cookie.js"></script>
+<script src="${path}js/jquery.validate.min.js"></script>
+<script src="${path}js/chart.min.js"></script>
+<script src="${path}js/front.js"></script>
 
 <!--Core Javascript -->
 <script>

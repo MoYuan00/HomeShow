@@ -192,22 +192,7 @@
         </div>
 
         <!-- 左边的导航栏的导航部分 -->
-        <ul class="list-unstyled">
-            <c:choose>
-                <c:when test="${sessionScope.un != null}">
-                    <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>美景管理</a></li>
-                    <li><a href="user/getProfile"> <i class="fa fa-user-o"></i>美食管理</a></li>
-                    <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>风土人情管理</a></li>
-                    <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>留言管理</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>首页</a></li>
-                    <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>家乡简介</a></li>
-                    <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>特色介绍</a></li>
-                    <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>游客留言</a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
+        <jsp:include page="nav-ul.jsp"/>
     </nav>
 
     <%--    主要内容从这里开始 --%>

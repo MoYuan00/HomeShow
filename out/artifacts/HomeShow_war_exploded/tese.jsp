@@ -2,6 +2,7 @@
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.lang.*" %>
 <%@ page import="bean.Profile" %>
 <%@ page import="java.util.List" %>
+<%@ page import="bean.Images" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -11,7 +12,7 @@
     Profile profile = new Profile();
 
     String content = null;
-    List<String> replies = null;
+    List<Images> replies = null;
 
     // 获取 美景
     content = profile.getMJContent();
@@ -125,22 +126,7 @@
     <!--***** SIDE NAVBAR *****-->
     <nav class="side-navbar">
         <!-- Sidebar Navidation Menus-->
-        <ul class="list-unstyled">
-            <c:choose>
-                <c:when test="${sessionScope.un != null}">
-                    <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>美景管理</a></li>
-                    <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>美食管理</a></li>
-                    <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>风土人情管理</a></li>
-                    <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>留言管理</a></li>
-                </c:when>
-                <c:otherwise>
-                    <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>首页</a></li>
-                    <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>家乡简介</a></li>
-                    <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>特色介绍</a></li>
-                    <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>游客留言</a></li>
-                </c:otherwise>
-            </c:choose>
-        </ul>
+        <jsp:include page="nav-ul.jsp"/>
     </nav>
 
     <!--***** CONTENT INNER *****-->
@@ -160,10 +146,10 @@
                                 <div class="row mt-3">
                                     <%--    简介图片--%>
                                     <div class="row mt-3">
-                                        <c:forEach var="imgPath" items="${pageScope.mj_list}">
+                                        <c:forEach var="image" items="${pageScope.mj_list}">
                                             <div class="col-md-4 col-sm-6 mt-1">
                                                 <div class="box-4">
-                                                    <img src="${imgPath}">
+                                                    <img src="${image.getImg()}">
                                                 </div>
                                             </div>
                                         </c:forEach>
@@ -177,10 +163,10 @@
                                 <div class="row mt-3">
                                     <%--    简介图片--%>
                                     <div class="row mt-3">
-                                        <c:forEach var="imgPath" items="${pageScope.food_list}">
+                                        <c:forEach var="image" items="${pageScope.food_list}">
                                             <div class="col-md-4 col-sm-6 mt-1">
                                                 <div class="box-4">
-                                                    <img src="${imgPath}">
+                                                    <img src="${image.getImg()}">
                                                 </div>
                                             </div>
                                         </c:forEach>
@@ -194,10 +180,10 @@
                                 <div class="row mt-3">
                                     <%--    简介图片--%>
                                     <div class="row mt-3">
-                                        <c:forEach var="imgPath" items="${pageScope.food_list}">
+                                        <c:forEach var="image" items="${pageScope.fftrq_list}">
                                             <div class="col-md-4 col-sm-6 mt-1">
                                                 <div class="box-4">
-                                                    <img src="${imgPath}">
+                                                    <img src="${image.getImg()}">
                                                 </div>
                                             </div>
                                         </c:forEach>

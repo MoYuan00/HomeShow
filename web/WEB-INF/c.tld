@@ -30,9 +30,9 @@
     <body-content>JSP</body-content>
     <attribute>
         <description>
-Name of the exported scoped variable for the
-exception thrown from a nested action. The type of the
-scoped variable is the type of the exception thrown.
+            Name of the exported scoped variable for the
+            exception thrown from a nested servlets. The type of the
+            scoped variable is the type of the exception thrown.
         </description>
         <name>var</name>
         <required>false</required>
@@ -452,9 +452,9 @@ Scope for var.
     <body-content>JSP</body-content>
     <attribute>
         <description>
-Name of the exported scoped variable to hold the value
-specified in the action. The type of the scoped variable is
-whatever type the value expression evaluates to.
+            Name of the exported scoped variable to hold the value
+            specified in the servlets. The type of the scoped variable is
+            whatever type the value expression evaluates to.
         </description>
         <name>var</name>
         <required>false</required>
