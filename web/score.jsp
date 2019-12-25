@@ -224,19 +224,19 @@
                     request.setAttribute("scoresList", session.getAttribute("scores"));
                     }
                 %>
-                <c:forEach var="s_score" items="${scoresList}" varStatus="status">
-                    <c:if test="${(status.index+1) % 2 == 0}">
-                        <c:if test="${(status.index+1) % 4 == 0}">
+                <c:forEach var="s_score" items="${scoresList}" varStatus="s">
+                    <c:if test="${(s.index+1) % 2 == 0}">
+                        <c:if test="${(s.index+1) % 4 == 0}">
                             <tr  class="table-info">
                         </c:if>
-                        <c:if test="${(status.index+1) % 4 != 0}">
+                        <c:if test="${(s.index+1) % 4 != 0}">
                             <tr  class="table-success">
                         </c:if>
                     </c:if>
-                    <c:if test="${(status.index+1) % 2 != 0}">
+                    <c:if test="${(s.index+1) % 2 != 0}">
                         <tr>
                     </c:if>
-                        <th scope="row">${status.index + 1}</th>
+                        <th scope="row">${s.index + 1}</th>
                         <td>${s_score.getId()}</td>
                         <td>${s_score.getName()}</td>
                         <td>${s_score.getScore()}</td>

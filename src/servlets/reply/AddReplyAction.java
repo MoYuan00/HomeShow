@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "AddReplyAction", urlPatterns = "/user/addReply")
+@WebServlet(name = "AddReplyAction", urlPatterns = "/addReply")
 public class AddReplyAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -26,6 +26,8 @@ public class AddReplyAction extends HttpServlet {
         r.setPhonenum(request.getParameter("rNumber"));
         System.out.println("reply to " + r.getMessageid());
         r.addReply();
-        request.getRequestDispatcher( "/user/getMessage").forward(request,response);
+        String jumpPath = request.getParameter("jumpPath");
+        System.out.println("跳转到：" + jumpPath);
+        response.sendRedirect(jumpPath);
     }
 }

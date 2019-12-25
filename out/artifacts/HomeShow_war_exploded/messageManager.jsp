@@ -204,85 +204,9 @@
                 <!-- 显示留言标题的面板 和 点击留言 （左边的导航栏）-->
                 <div class="col-md-4">
                     <nav class="nav vert-tab flex-column">
-                        <%-- 点击可以留言 --%>
-                        <a class="nav-link tab-faq" href="#lMessage" data-toggle="modal" style="border-style: outset">
-                            <h3> 点击留言 </h3>
-                            <small>I'd like to hear your voice.</small>
-                        </a>
-                        <%--留言的 弹出窗口 --%>
-                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lMessage"
-                             class="modal fade" style="display: none;">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!--***** USER INFO *****-->
-                                    <div class="col-md-12">
-                                        <div class="card form" id="lform">
-                                            <div class="card-header">
-                                                <h3 style="display: inline"><i class="fa fa-commenting-o"></i> Message
-                                                    Board</h3>
-                                                <button aria-hidden="true" data-dismiss="modal" class="close"
-                                                        type="button">X
-                                                </button>
-                                            </div>
-                                            <form action="<%=basePath%>user/addMessage" method="get">
-                                                <div class="form-group">
-                                                    <label for="lTitle">Title</label>
-                                                    <input type="text" class="form-control" id="lTitle"
-                                                           placeholder="Enter title" name="lTitle">
-                                                </div>
-
-                                                <div class="form-group" style="margin-top: 0;">
-                                                    <label for="lTextarea">Content</label>
-                                                    <textarea class="form-control" id="lTextarea" rows="8"
-                                                              placeholder="Let me hear your thought"
-                                                              name="lContent"></textarea>
-                                                </div>
-
-                                                <div class="row mt-3">
-                                                    <div class="col-md-12">
-                                                        <div class="card-header">
-                                                            <h3><i class="fa fa-user-circle"></i> User Info</h3>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row" style="margin-top: 20px;">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="lName">Full Name</label>
-                                                            <input type="text" class="form-control" id="lName"
-                                                                   name="lName" placeholder="Enter name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="lEmail">Email address</label>
-                                                            <input type="email" class="form-control" id="lEmail"
-                                                                   name="lEmail" placeholder="Enter email">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="lNumber">Contact Num</label>
-                                                            <input type="number" class="form-control" id="lNumber"
-                                                                   name="lNum" placeholder="Enter number">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-general btn-blue mr-2">Submit
-                                                </button>
-                                                <button type="reset" class="btn btn-general btn-white">Cancel</button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- /.modal-content -->
-                            </div>
-                        </div>
-                        <%--显示留言标题--%>
-                        <c:forEach var="s_message" items="${messages}" varStatus="status">
-                            <a class="nav-link tab-faq js-scroll-trigger" href="#MSG${status.index}">
+                 <%--显示留言标题--%>
+                        <c:forEach var="s_message" items="${messages}" varStatus="s">
+                            <a class="nav-link tab-faq js-scroll-trigger" href="#MSG${s.index}">
                                 <h3><i class="fa fa-dot-circle-o"></i>
                                     <c:choose>
                                         <%--                                        当字符串过于长时的处理--%>
@@ -313,21 +237,21 @@
                 <%--显示所有的留言的面板--%>
                 <div class="col-md-8">
                     <!-- 遍历所有的留言 -->
-                    <c:forEach var="s_message" items="${messages}" varStatus="status">
-                        <div class="faq-cont" id="MSG${status.index}">
+                    <c:forEach var="s_message" items="${messages}" varStatus="s">
+                        <div class="faq-cont" id="MSG${s.index}">
                             <div class="faq-heading-cont">
                                 <!--<h3><i class="fa fa-power-off"></i> Basic Question</h3>-->
                             </div>
                                 <%--                            一条留言--%>
-                            <div class="panel-group" id="accordion-${status.index}">
+                            <div class="panel-group" id="accordion-${s.index}">
                                     <%--message--%>
                                     <%--                                留言内容--%>
                                 <div class="panel panel-default panel-faq">
                                     <div class="panel-heading">
-                                        <a data-toggle="collapse" data-parent="#accordion-${status.index}"
+                                        <a data-toggle="collapse" data-parent="#accordion-${s.index}"
                                            href="#faq-sub-cat${s_message.getId()}">
                                             <h4 class="panel-title"><i class="fa fa-dot-circle-o"></i>
-                                                    ${status.index+1}) ${s_message.getTitle()}
+                                                    ${s.index+1}) ${s_message.getTitle()}
                                                 <span class="pull-right"><i class="fa fa-plus"></i></span>
 
                                             </h4>
@@ -373,20 +297,20 @@
                                     </div>
                                 </div>
                                     <%--一条留言的回复（每条留言都可以有多条回复）--%>
-                                <c:forEach var="s_reply" items="${replies}" varStatus="status">
+                                <c:forEach var="s_reply" items="${replies}" varStatus="s">
                                     <c:if test="${s_reply.getMessageid().equals(s_message.getId())}">
                                         <%--SHOW REPLY--%>
                                         <div class="panel panel-default panel-faq">
                                             <div class="panel-heading">
-                                                <a data-toggle="collapse" data-parent="#accordion-${status.index}"
-                                                   href="#faq-sub-cat${status.index}-${s_reply.getReplyid()}">
+                                                <a data-toggle="collapse" data-parent="#accordion-${s.index}"
+                                                   href="#faq-sub-cat${s.index}-${s_reply.getReplyid()}">
                                                     <h4 class="panel-title">
                                                             ${s_reply.getTitle()}
                                                         <span class="pull-right"><i class="fa fa-plus"></i></span>
                                                     </h4>
                                                 </a>
                                             </div>
-                                            <div id="faq-sub-cat${status.index}-${s_reply.getReplyid()}"
+                                            <div id="faq-sub-cat${s.index}-${s_reply.getReplyid()}"
                                                  class="panel-collapse collapse">
                                                 <div class="panel-body" style="padding-bottom: 0;">
                                                     By: <a href="#">${s_reply.getUsername()}</a>
@@ -394,6 +318,14 @@
                                                 </div>
                                                 <div class="panel-body" style="padding-top: 0;">
                                                         ${s_reply.getContent()}
+                                                </div>
+                                                <div class="panel-body" style="padding-top: 0;">
+                                                        <%--添加删除按钮--%>
+                                                    <form action="${path}deleteReply">
+                                                        <input type="hidden" name="id" value="${s_message.getId()}">
+                                                        <input type="hidden" name="jumpPath" value="messageManager.jsp">
+                                                        <button class="btn btn-general btn-danger" style="color: red" type="submit">删除回复</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -404,12 +336,15 @@
                                 <div class="panel panel-default panel-faq">
                                     <div class="row">
                                         <div class="col-sm-9 col-md-9">
-                                            <a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-compose">
+                                            <a href="#myModal" data-toggle="modal" title="Compose"
+                                               class="btn btn-compose">
                                                 Reply</a>
                                         </div>
-
-                                        <form>
-                                            <button class="btn btn-danger">删除</button>
+                                            <%--添加删除按钮--%>
+                                        <form action="${path}deleteMessage">
+                                            <input type="hidden" name="id" value="${s_message.getId()}">
+                                            <input type="hidden" name="jumpPath" value="messageManager.jsp">
+                                            <button class="btn btn-general btn-danger" style="color: red;margin-top: 0px" type="submit">删除</button>
                                         </form>
                                     </div>
 
@@ -501,6 +436,81 @@
 
                                     </div>
 
+                                </div>
+                            </div>
+                                <%-- 点击可以留言 --%>
+                            <a class="btn btn-general btn-blue" href="#lMessage" data-toggle="modal" style="border-style: outset">
+                                <h3> 编辑留言 </h3>
+                            </a>
+                                <%--留言的 弹出窗口 --%>
+                            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lMessage"
+                                 class="modal fade" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!--***** USER INFO *****-->
+                                        <div class="col-md-12">
+                                            <div class="card form" id="lform">
+                                                <div class="card-header">
+                                                    <h3 style="display: inline"><i class="fa fa-commenting-o"></i>编辑留言</h3>
+                                                    <button aria-hidden="true" data-dismiss="modal" class="close"
+                                                            type="button">X
+                                                    </button>
+                                                </div>
+                                                <form action="<%=basePath%>addMessage" method="get">
+                                                    <div class="form-group">
+                                                        <label for="lTitle">标题</label>
+                                                        <input type="text" class="form-control" id="lTitle"
+                                                               placeholder="标题" name="lTitle" value="${s_message.getTitle()}">
+                                                    </div>
+
+                                                    <div class="form-group" style="margin-top: 0;">
+                                                        <label for="lTextarea">内容</label>
+                                                        <textarea class="form-control" id="lTextarea" rows="5"
+                                                                  placeholder="在这里发表你的看法！"
+                                                                  name="lContent">${s_message.getContent()}</textarea>
+                                                    </div>
+                                                    <div class="row mt-3">
+                                                        <div class="col-md-12">
+                                                            <div class="card-header">
+                                                                <h3><i class="fa fa-user-circle"></i>提交人信息</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row" style="margin-top: 20px;">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="lName">名称</label>
+                                                                <input type="text" class="form-control" id="lName"
+                                                                       name="lName" placeholder="输入名称让我们知道你"
+                                                                value="${s_message.getUsername()}">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="lEmail">邮箱</label>
+                                                                <input type="email" class="form-control" id="lEmail"
+                                                                       name="lEmail" placeholder="输入邮箱让我们联系你"
+                                                                value="${s_message.getEmail()}">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="lNumber">电话</label>
+                                                                <input type="tel" class="form-control" id="lNumber"
+                                                                       name="lNum" placeholder="输入电话让我们联系你"
+                                                                value="${s_message.getPhonenum()}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-general btn-blue mr-2">提交
+                                                    </button>
+                                                    <button type="reset" class="btn btn-general btn-white">取消</button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal-content -->
                                 </div>
                             </div>
 

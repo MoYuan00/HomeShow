@@ -18,6 +18,36 @@ public class Message {
     private String time;
 
     /**
+     *  删除一条信息
+     */
+    public void deleteMessageById(){
+        System.out.println("Message.deleteMessageById()");
+        // 删除信息
+        String query_m = "DELETE FROM t_Message WHERE `messageid` = ?";
+        // 删除回复信息
+        String query_r = "DELETE FROM t_Reply WHERE `messageid` = ?";
+        Connection conn = null;
+        PreparedStatement pstmt_m = null;
+        PreparedStatement pstmt_r = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt_m = conn.prepareStatement(query_m);
+            pstmt_m.setInt(1, id);
+            pstmt_m.executeUpdate();
+            System.out.println("delete Message success");
+            pstmt_r = conn.prepareStatement(query_r);
+            pstmt_r.setInt(1, id);
+            pstmt_r.executeUpdate();
+            System.out.println("delete reply success");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt_m, null);
+//            C3P0JdbcUtil.release(null, pstmt_r, null);
+        }
+    }
+
+    /**
      * 獲取所有的留言信息
      * @return
      */

@@ -19,6 +19,26 @@ public class Reply {
     private String phonenum;
     private String time;
 
+    public void deleteReplyById(){
+        System.out.println("Reply.deleteReplyById()");
+        // 删除信息
+        // 删除回复信息
+        String query_r = "DELETE FROM t_Reply WHERE `replyid` = ?";
+        Connection conn = null;
+        PreparedStatement pstmt_r = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt_r = conn.prepareStatement(query_r);
+            pstmt_r.setInt(1, this.replyid);
+            pstmt_r.executeUpdate();
+            System.out.println("delete reply success");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt_r, null);
+        }
+    }
+
     /**
      *  获取所有的回复信息
      * @return

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
 
-@WebServlet(name = "addMessage" , urlPatterns = "/user/addMessage")
+@WebServlet(name = "addMessage" , urlPatterns = "/addMessage")
 public class addMessage extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private String url = dataUrl.url;
@@ -27,6 +27,7 @@ public class addMessage extends HttpServlet {
         String username = request.getParameter("lName");
         String email = request.getParameter("lEmail");
         String phonenum = request.getParameter("lNumber");
+        String jumpPath = request.getParameter("jumpPath");
 //        System.out.println(username + "  " + email + "\n" + title + " : " + content + "\n");
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -41,7 +42,7 @@ public class addMessage extends HttpServlet {
             pstmt.setString(5,phonenum);
             pstmt.executeUpdate();
             // if no error back to message
-            request.getRequestDispatcher( "/user/getMessage").forward(request,response);
+            response.sendRedirect(jumpPath);
         }catch (Exception e) {
             e.printStackTrace();
             System.out.println("add message error");

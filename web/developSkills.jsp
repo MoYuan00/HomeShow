@@ -295,7 +295,7 @@
         <!--***** develop skill learning TIMELINE *****-->
         <div class="main-timeline" id="timeline-1">
 
-            <c:forEach var="s_skill" items="${skillsList}" varStatus="status">
+            <c:forEach var="s_skill" items="${skillsList}" varStatus="s">
                 <div class="timeline">
                     <div class="timeline-icon"></div>
                     <div class="timeline-content">
