@@ -83,7 +83,7 @@
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <c:choose>
                     <c:when test="${sessionScope.un != null}">
-                        <a rel="nofollow" href="${path}log/toLogout" class="dropdown-item">
+                        <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
                             <div class="notification">
                                 <div class="notification-content">
                                     <i class="fa fa-power-off"></i>登出
@@ -92,7 +92,7 @@
                         </a>
                     </c:when>
                     <c:otherwise>
-                        <a rel="nofollow" href="login.jsp" class="dropdown-item">
+                        <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
                             <div class="notification">
                                 <div class="notification-content">
                                     <i class="fa fa-power-off"></i>登录

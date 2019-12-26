@@ -66,7 +66,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.un != null}">
                         <li>
-                            <a rel="nofollow" href="log/toLogout" class="dropdown-item">
+                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
                                 <div class="notification">
                                     <div class="notification-content">
                                         <i class="fa fa-power-off"></i>登出
@@ -77,10 +77,19 @@
                     </c:when>
                     <c:otherwise>
                         <li>
-                            <a rel="nofollow" href="login.jsp" class="dropdown-item">
+                            <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
                                 <div class="notification">
                                     <div class="notification-content">
                                         <i class="fa fa-power-off"></i>登录
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" href="register.jsp" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>
+                                        注册
                                     </div>
                                 </div>
                             </a>

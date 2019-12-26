@@ -75,22 +75,35 @@
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <c:choose>
                     <c:when test="${sessionScope.un != null}">
-                        <a rel="nofollow" href="${path}log/toLogout" class="dropdown-item">
-                            <div class="notification">
-                                <div class="notification-content">
-                                    <i class="fa fa-power-off"></i>登出
+                        <li>
+                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content">
+                                        <i class="fa fa-power-off"></i>登出
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </li>
                     </c:when>
                     <c:otherwise>
-                        <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
-                            <div class="notification">
-                                <div class="notification-content">
-                                    <i class="fa fa-power-off"></i>登录
+                        <li>
+                            <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content">
+                                        <i class="fa fa-power-off"></i>登录
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" href="register.jsp" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>
+                                        注册
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                     </c:otherwise>
                 </c:choose>
             </ul>
@@ -127,13 +140,28 @@
                                 <div class="row mt-3">
                                     <%--    简介图片--%>
                                     <div class="row mt-3">
-                                        <c:forEach var="image" items="${pageScope.list}">
+<%--                                        <c:forEach var="image" items="${pageScope.list}">--%>
                                             <div class="col-md-4 col-sm-6 mt-1">
                                                 <div class="box-4">
-                                                    <img src="${path}${image.getImg()}">
+                                                    <img src="./img/1.png">
                                                 </div>
                                             </div>
-                                        </c:forEach>
+                                            <div class="col-md-4 col-sm-6 mt-1">
+                                                <div class="box-4">
+                                                    <img src="./img/2.png">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 mt-1">
+                                                <div class="box-4">
+                                                    <img src="./img/3.png">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-sm-6 mt-1">
+                                                <div class="box-4">
+                                                    <img src="./img/4.png">
+                                                </div>
+                                            </div>
+<%--                                        </c:forEach>--%>
                                     </div>
                                 </div>
                             </div>

@@ -44,27 +44,35 @@
                   <h3 class="text-center">家乡展示管理平台<img src="" class="img-fluid" alt=""></h3><br>
                   <form action="<%=basePath%>user/login" method="post">
                     <div class="form-group">
-                      <label for="username">Username</label>
-                      <input type="text" class="form-control" id="username" placeholder="Enter Username" value="${username}" name="username">
+                      <label for="username">用户名</label>
+                      <input type="text" class="form-control" id="username"
+                             placeholder="username"   name="username">
                     </div>  
                     <div class="form-group">
-                      <label for="example-password-input">Password</label>
-                      <input class="form-control" type="password"  id="example-password-input"  placeholder="Enter Password" value="${password}" name="password">
-                    </div>   
-                    
+                      <label for="example-password-input">密码</label>
+                      <input class="form-control" type="password"
+                             id="example-password-input"
+                             placeholder="password" name="password">
+
+                    </div>
+                       <div>
+                           <label for="remember">记住密码</label>
+                           <input id="remember" type="checkbox" class="check">
+                       </div>
+
                     <%
-					if(request.getAttribute("message") != null) {
+					    if(request.getAttribute("message") != null) {
 					%>
-					<div style="color: red;">
-						<p>${message}</p>
-					</div>
+                        <div style="color: red;">
+                            <p>${message}</p>
+                        </div>
 					<%
 						}
 					%>
 
-                    <button class="btn btn-general btn-blue" role="button">Login</button>
-                    <button class="btn btn-general btn-white" type="button" style="float: right;"
-                            onclick = "window.location.href = '${path}index.jsp'">Back</button>
+                    <button onclick="login()" class="btn btn-general btn-blue" role="button">登录</button>
+                    <button class="btn btn-general btn-white pull-right" type="button"
+                            onclick = "window.location.href = '${path}index.jsp'">取消</button>
                     
                   </form>
                 </div>
@@ -77,6 +85,30 @@
     <script src="${path}js/jquery.min.js"></script>
     <script src="${path}js/tether.min.js"></script>
     <script src="${path}js/bootstrap.min.js"></script>
-</body>
 
+</body>
+<script>
+    // 获取记住的密码
+    var name = localStorage.getItem("keyName");
+    var pw = localStorage.getItem("keyPass");
+    $('#username').val(name);
+    $('#example-password-input') .val(pw);
+    if(pw != undefined && pw != ''){// 如果有密码
+        $('#remember').attr("checked", "checked")
+    }
+
+
+    function login() {
+        var strName = $('#username').val();
+        var strPass = $('#example-password-input').val();
+        localStorage.setItem('keyName',strName);
+        // 如果选中记住密码
+        if($('#remember').is(':checked')){
+            localStorage.setItem('keyPass',strPass);
+        }else{// 没有选中 清除密码
+            localStorage.removeItem('keyPass');
+        }
+    }
+
+</script>
 </html>

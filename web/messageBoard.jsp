@@ -54,12 +54,12 @@
 <header class="header">
     <nav class="navbar navbar-expand-lg ">
         <%--        头部导航栏的搜索框--%>
-        <div class="search-box">
-            <button class="dismiss"><i class="icon-close"></i></button>
-            <form id="searchForm" action="#" role="search">
-                <input type="search" placeholder="Search Now" class="form-control">
-            </form>
-        </div>
+<%--        <div class="search-box">--%>
+<%--            <button class="dismiss"><i class="icon-close"></i></button>--%>
+<%--            <form id="searchForm" action="#" role="search">--%>
+<%--                <input type="search" placeholder="Search Now" class="form-control">--%>
+<%--            </form>--%>
+<%--        </div>--%>
         <div class="container-fluid ">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
                 <div class="navbar-header">
@@ -80,8 +80,8 @@
             <%--            头部导航栏右边的头像点击下拉菜单--%>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <%--                搜索框点击区域--%>
-                <li class="nav-item d-flex align-items-center">
-                    <a id="search" class="nav-link" href="#"><i class="icon-search"></i></a></li>
+<%--                <li class="nav-item d-flex align-items-center">--%>
+<%--                    <a id="search" class="nav-link" href="#"><i class="icon-search"></i></a></li>--%>
                 <!-- 头像-->
                 <li class="nav-item dropdown">
                     <a id="profile" class="nav-link logout" data-target="#"
@@ -102,44 +102,44 @@
                     </a>
                     <%--                    点击头像的下拉菜单--%>
                     <ul aria-labelledby="profile" class="dropdown-menu profile">
-                        <li>
-                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                <div class="msg-profile">
-                                    <c:choose>
-                                        <c:when test="${sessionScope.un != null}">
-                                            <img src="img/head.png" alt="..." class="img-fluid rounded-circle">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle">
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                                <div class="msg-body">
-                                    <h3 class="h5">Hi ${sessionScope.un}</h3>
-                                    <span>huhanlin@bjfu.edu.cn</span>
-                                </div>
-                            </a>
-                            <hr>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-user "></i>My Profile</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-cog"></i>...</div>
-                                </div>
-                            </a>
-                            <hr>
-                        </li>
+<%--                        <li>--%>
+<%--                            <a rel="nofollow" href="#" class="dropdown-item d-flex">--%>
+<%--                                <div class="msg-profile">--%>
+<%--                                    <c:choose>--%>
+<%--                                        <c:when test="${sessionScope.un != null}">--%>
+<%--                                            <img src="img/head.png" alt="..." class="img-fluid rounded-circle">--%>
+<%--                                        </c:when>--%>
+<%--                                        <c:otherwise>--%>
+<%--                                            <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle">--%>
+<%--                                        </c:otherwise>--%>
+<%--                                    </c:choose>--%>
+<%--                                </div>--%>
+<%--                                <div class="msg-body">--%>
+<%--                                    <h3 class="h5">Hi ${sessionScope.un}</h3>--%>
+<%--                                    <span>huhanlin@bjfu.edu.cn</span>--%>
+<%--                                </div>--%>
+<%--                            </a>--%>
+<%--                            <hr>--%>
+<%--                        </li>--%>
+<%--                        <li>--%>
+<%--                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">--%>
+<%--                                <div class="notification">--%>
+<%--                                    <div class="notification-content"><i class="fa fa-user "></i>My Profile</div>--%>
+<%--                                </div>--%>
+<%--                            </a>--%>
+<%--                        </li>--%>
+<%--                        <li>--%>
+<%--                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">--%>
+<%--                                <div class="notification">--%>
+<%--                                    <div class="notification-content"><i class="fa fa-cog"></i>...</div>--%>
+<%--                                </div>--%>
+<%--                            </a>--%>
+<%--                            <hr>--%>
+<%--                        </li>--%>
                         <li>
                             <c:choose>
                                 <c:when test="${sessionScope.un != null}">
-                                    <a rel="nofollow" href="log/toLogout" class="dropdown-item">
+                                    <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
                                         <div class="notification">
                                             <div class="notification-content"><i class="fa fa-power-off"></i>
                                                 退出登录
@@ -148,7 +148,7 @@
                                     </a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a rel="nofollow" href="login.jsp" class="dropdown-item">
+                                    <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
                                         <div class="notification">
                                             <div class="notification-content"><i class="fa fa-power-off"></i>
                                                 登录
@@ -223,7 +223,7 @@
                                                         type="button">X
                                                 </button>
                                             </div>
-                                            <form action="<%=basePath%>addMessage" method="get">
+                                            <form action="<%=basePath%>addMessage" method="post">
                                                 <input type="hidden" name="jumpPath" value="messageBoard.jsp">
                                                 <div class="form-group">
                                                     <label for="lTitle">标题</label>
@@ -270,7 +270,6 @@
                                                 </div>
                                                 <button type="submit" class="btn btn-general btn-blue mr-2">提交
                                                 </button>
-                                                <button type="reset" class="btn btn-general btn-white">取消</button>
                                             </form>
                                         </div>
                                     </div>
@@ -349,18 +348,6 @@
                                                             <div class="comment-text">
                                                                     ${s_message.getContent()}
                                                             </div>
-                                                            <%if (session.getAttribute("un") != null) {%>
-                                                            <div style="float: right">
-                                                                <a href="#"
-                                                                   class="btn btn-sm btn-hover btn-primary"><span
-                                                                        class="fa fa-edit"
-                                                                        style="padding-right:3px;"></span>edit</a>
-                                                                <a href="user/deleteMessage?id=${s_message.getId()}"
-                                                                   class="btn btn-sm btn-hover btn-danger"><span
-                                                                        class="fa fa-remove"
-                                                                        style="padding-right:3px;"></span>delete</a>
-                                                            </div>
-                                                            <% } %>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -418,7 +405,7 @@
                                                                     class="close" type="button">×
                                                             </button>
                                                         </div>
-                                                        <form action="${path}addReply">
+                                                        <form action="${path}addReply" method="post">
                                                             <input type="hidden" name="jumpPath" value="messageBoard.jsp">
                                                             <input type="hidden" value="${s_message.getId()}"
                                                                    name="rmsgId">
@@ -483,10 +470,7 @@
                                                                     class="btn btn-general btn-blue mr-2">
                                                                 回复
                                                             </button>
-                                                            <button type="reset"
-                                                                    class="btn btn-general btn-white">
-                                                                取消
-                                                            </button>
+
                                                         </form>
                                                     </div>
                                                 </div>

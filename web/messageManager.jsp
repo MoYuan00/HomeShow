@@ -54,12 +54,12 @@
 <header class="header">
     <nav class="navbar navbar-expand-lg ">
         <%--        头部导航栏的搜索框--%>
-        <div class="search-box">
-            <button class="dismiss"><i class="icon-close"></i></button>
-            <form id="searchForm" action="#" role="search">
-                <input type="search" placeholder="Search Now" class="form-control">
-            </form>
-        </div>
+<%--        <div class="search-box">--%>
+<%--            <button class="dismiss"><i class="icon-close"></i></button>--%>
+<%--            <form id="searchForm" action="#" role="search">--%>
+<%--                <input type="search" placeholder="Search Now" class="form-control">--%>
+<%--            </form>--%>
+<%--        </div>--%>
         <div class="container-fluid ">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
                 <div class="navbar-header">
@@ -80,8 +80,8 @@
             <%--            头部导航栏右边的头像点击下拉菜单--%>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <%--                搜索框点击区域--%>
-                <li class="nav-item d-flex align-items-center">
-                    <a id="search" class="nav-link" href="#"><i class="icon-search"></i></a></li>
+<%--                <li class="nav-item d-flex align-items-center">--%>
+<%--                    <a id="search" class="nav-link" href="#"><i class="icon-search"></i></a></li>--%>
                 <!-- 头像-->
                 <li class="nav-item dropdown">
                     <a id="profile" class="nav-link logout" data-target="#"
@@ -94,7 +94,7 @@
                                          style="height: 50px; width: 50px;">
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="i¨mg/work/3.jpg" alt="..." class="img-fluid rounded-circle"
+                                    <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle"
                                          style="height: 50px; width: 50px;">
                                 </c:otherwise>
                             </c:choose>
@@ -103,43 +103,9 @@
                     <%--                    点击头像的下拉菜单--%>
                     <ul aria-labelledby="profile" class="dropdown-menu profile">
                         <li>
-                            <a rel="nofollow" href="#" class="dropdown-item d-flex">
-                                <div class="msg-profile">
-                                    <c:choose>
-                                        <c:when test="${sessionScope.un != null}">
-                                            <img src="img/head.png" alt="..." class="img-fluid rounded-circle">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle">
-                                        </c:otherwise>
-                                    </c:choose>
-                                </div>
-                                <div class="msg-body">
-                                    <h3 class="h5">Hi ${sessionScope.un}</h3>
-                                    <span>huhanlin@bjfu.edu.cn</span>
-                                </div>
-                            </a>
-                            <hr>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-user "></i>My Profile</div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-cog"></i>...</div>
-                                </div>
-                            </a>
-                            <hr>
-                        </li>
-                        <li>
                             <c:choose>
                                 <c:when test="${sessionScope.un != null}">
-                                    <a rel="nofollow" href="log/toLogout" class="dropdown-item">
+                                    <a rel="nofollow" href="${path}/user/logout" class="dropdown-item">
                                         <div class="notification">
                                             <div class="notification-content"><i class="fa fa-power-off"></i>
                                                 退出登录
@@ -201,10 +167,85 @@
         <div class="container">
             <%--            一行 --%>
             <div class="row">
-                <!-- 显示留言标题的面板 和 点击留言 （左边的导航栏）-->
+                <!-- 显示留言标题的面板  （左边的导航栏）-->
                 <div class="col-md-4">
                     <nav class="nav vert-tab flex-column">
-                 <%--显示留言标题--%>
+                        <%-- 点击可以留言 --%>
+                        <a class="nav-link tab-faq" href="#lMessage" data-toggle="modal" style="border-style: outset">
+                            <h3> 添加留言 </h3>
+                            <small>我们想听到你的声音。欢迎发表留言。</small>
+                        </a>
+                        <%--留言的 弹出窗口 --%>
+                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lMessage"
+                             class="modal fade" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <!--***** USER INFO *****-->
+                                    <div class="col-md-12">
+                                        <div class="card form">
+                                            <div class="card-header">
+                                                <h3 style="display: inline"><i class="fa fa-commenting-o"></i>留言板</h3>
+                                                <button aria-hidden="true" data-dismiss="modal" class="close"
+                                                        type="button">X
+                                                </button>
+                                            </div>
+                                            <form action="<%=basePath%>addMessage" method="post">
+                                                <input type="hidden" name="jumpPath" value="messageManager.jsp">
+                                                <div class="form-group">
+                                                    <label for="lTitle1">标题</label>
+                                                    <input type="text" class="form-control" id="lTitle1"
+                                                           placeholder="标题" name="lTitle">
+                                                </div>
+
+                                                <div class="form-group" style="margin-top: 0;">
+                                                    <label for="lTextarea1">内容</label>
+                                                    <textarea class="form-control" id="lTextarea1" rows="5"
+                                                              placeholder="在这里发表你的看法！"
+                                                              name="lContent"></textarea>
+                                                </div>
+
+                                                <div class="row mt-3">
+                                                    <div class="col-md-12">
+                                                        <div class="card-header">
+                                                            <h3><i class="fa fa-user-circle"></i>你的信息</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row" style="margin-top: 20px;">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="lName">名称</label>
+                                                            <input type="text" class="form-control" id="lName"
+                                                                   name="lName" placeholder="输入名称让我们知道你">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="lEmail">邮箱</label>
+                                                            <input type="email" class="form-control" id="lEmail"
+                                                                   name="lEmail" placeholder="输入邮箱让我们联系你">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="lNumber">电话</label>
+                                                            <input type="tel" class="form-control" id="lNumber"
+                                                                   name="lNum" placeholder="输入电话让我们联系你">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-general btn-blue mr-2">提交
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                        </div>
+
+                    <%--显示留言标题--%>
                         <c:forEach var="s_message" items="${messages}" varStatus="s">
                             <a class="nav-link tab-faq js-scroll-trigger" href="#MSG${s.index}">
                                 <h3><i class="fa fa-dot-circle-o"></i>
@@ -237,21 +278,21 @@
                 <%--显示所有的留言的面板--%>
                 <div class="col-md-8">
                     <!-- 遍历所有的留言 -->
-                    <c:forEach var="s_message" items="${messages}" varStatus="s">
-                        <div class="faq-cont" id="MSG${s.index}">
+                    <c:forEach var="s_message" items="${messages}" varStatus="status">
+                        <div class="faq-cont" id="MSG${status.index}">
                             <div class="faq-heading-cont">
                                 <!--<h3><i class="fa fa-power-off"></i> Basic Question</h3>-->
                             </div>
                                 <%--                            一条留言--%>
-                            <div class="panel-group" id="accordion-${s.index}">
+                            <div class="panel-group" id="accordion-${status.index}">
                                     <%--message--%>
                                     <%--                                留言内容--%>
                                 <div class="panel panel-default panel-faq">
                                     <div class="panel-heading">
-                                        <a data-toggle="collapse" data-parent="#accordion-${s.index}"
+                                        <a data-toggle="collapse" data-parent="#accordion-${status.index}"
                                            href="#faq-sub-cat${s_message.getId()}">
                                             <h4 class="panel-title"><i class="fa fa-dot-circle-o"></i>
-                                                    ${s.index+1}) ${s_message.getTitle()}
+                                                    ${status.index+1}) ${s_message.getTitle()}
                                                 <span class="pull-right"><i class="fa fa-plus"></i></span>
 
                                             </h4>
@@ -277,16 +318,75 @@
                                                             <div class="comment-text">
                                                                     ${s_message.getContent()}
                                                             </div>
-                                                            <%if (session.getAttribute("un") != null) {%>
+<%--                                                            对留言的操作， 如果登录了，并且是管理员才可以删除--%>
+                                                            <%if (session.getAttribute("un") != null && "admin".equals(session.getAttribute("un").toString())) {%>
                                                             <div style="float: right">
-                                                                <a href="#"
-                                                                   class="btn btn-sm btn-hover btn-primary"><span
-                                                                        class="fa fa-edit"
-                                                                        style="padding-right:3px;"></span>edit</a>
-                                                                <a href="user/deleteMessage?id=${s_message.getId()}"
+                                                                <a class="btn btn-sm btn-hover btn-primary"
+                                                                   href="#lMessage-r-${status.index}"
+                                                                   data-toggle="modal"
+                                                                   style="border-style: outset;margin-top: 0px;">
+                                                                    <span
+                                                                            class="fa fa-edit"
+                                                                            style="padding-right:3px;"></span> 编辑
+                                                                </a>
+                                                                    <%--编辑留言弹出窗口 --%>
+                                                                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+                                                                     tabindex="-1"
+                                                                     id="lMessage-r-${status.index}"
+                                                                     class="modal fade" style="display: none;">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <!--***** USER INFO *****-->
+                                                                            <div class="col-md-12">
+                                                                                <div class="card form" >
+                                                                                    <div class="card-header">
+                                                                                        <h3 style="display: inline"><i
+                                                                                                class="fa fa-commenting-o"></i>编辑留言: ${s_message.getTitle()}
+                                                                                        </h3>
+                                                                                        <button aria-hidden="true"
+                                                                                                data-dismiss="modal"
+                                                                                                class="close"
+                                                                                                type="button">X
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <form action="<%=basePath%>updateMessage"
+                                                                                          method="get">
+                                                                                        <input type="hidden" name="id" value="${s_message.getId()}">
+                                                                                        <input type="hidden" name="jumpPath" value="messageManager.jsp">
+                                                                                        <div class="form-group">
+                                                                                            <label for="lTitle">标题</label>
+                                                                                            <input type="text" class="form-control"
+                                                                                                   id="lTitle"
+                                                                                                   placeholder="标题" name="title"
+                                                                                                   value="${s_message.getTitle()}">
+                                                                                        </div>
+
+                                                                                        <div class="form-group"
+                                                                                             style="margin-top: 0;">
+                                                                                            <label for="lTextarea">内容</label>
+                                                                                            <textarea class="form-control"
+                                                                                                      id="lTextarea"
+                                                                                                      rows="5"
+                                                                                                      placeholder="在这里发表你的看法！"
+                                                                                                      name="content">${s_message.getContent()}</textarea>
+                                                                                        </div>
+                                                                                        <button type="submit"
+                                                                                                class="btn btn-general btn-blue mr-2">
+                                                                                            提交
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <!-- /.modal-content -->
+                                                                    </div>
+                                                                </div>
+<%--                                                                删除留言--%>
+                                                                <a href="deleteMessage?id=${s_message.getId()}&jumpPath=messageManager.jsp"
                                                                    class="btn btn-sm btn-hover btn-danger"><span
                                                                         class="fa fa-remove"
-                                                                        style="padding-right:3px;"></span>delete</a>
+                                                                        style="padding-right:3px;"></span>删除</a>
                                                             </div>
                                                             <% } %>
                                                         </div>
@@ -295,224 +395,222 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
-                                    <%--一条留言的回复（每条留言都可以有多条回复）--%>
-                                <c:forEach var="s_reply" items="${replies}" varStatus="s">
-                                    <c:if test="${s_reply.getMessageid().equals(s_message.getId())}">
-                                        <%--SHOW REPLY--%>
-                                        <div class="panel panel-default panel-faq">
-                                            <div class="panel-heading">
-                                                <a data-toggle="collapse" data-parent="#accordion-${s.index}"
-                                                   href="#faq-sub-cat${s.index}-${s_reply.getReplyid()}">
-                                                    <h4 class="panel-title">
-                                                            ${s_reply.getTitle()}
-                                                        <span class="pull-right"><i class="fa fa-plus"></i></span>
-                                                    </h4>
-                                                </a>
-                                            </div>
-                                            <div id="faq-sub-cat${s.index}-${s_reply.getReplyid()}"
-                                                 class="panel-collapse collapse">
-                                                <div class="panel-body" style="padding-bottom: 0;">
-                                                    By: <a href="#">${s_reply.getUsername()}</a>
-                                                    at ${s_reply.getTime()}
+                                        <%--一条留言的回复（每条留言都可以有多条回复）--%>
+                                    <c:forEach var="s_reply" items="${replies}" varStatus="s">
+                                        <c:if test="${s_reply.getMessageid().equals(s_message.getId())}">
+                                            <%--SHOW REPLY--%>
+                                            <div class="panel panel-default panel-faq">
+                                                <div class="panel-heading">
+                                                    <a data-toggle="collapse" data-parent="#accordion-${s.index}"
+                                                       href="#faq-sub-cat${s.index}-${s_reply.getReplyid()}">
+                                                        <h4 class="panel-title">
+                                                                ${s_reply.getTitle()}
+                                                            <span class="pull-right"><i class="fa fa-plus"></i></span>
+                                                        </h4>
+                                                    </a>
                                                 </div>
-                                                <div class="panel-body" style="padding-top: 0;">
-                                                        ${s_reply.getContent()}
-                                                </div>
-                                                <div class="panel-body" style="padding-top: 0;">
-                                                        <%--添加删除按钮--%>
-                                                    <form action="${path}deleteReply">
-                                                        <input type="hidden" name="id" value="${s_message.getId()}">
-                                                        <input type="hidden" name="jumpPath" value="messageManager.jsp">
-                                                        <button class="btn btn-general btn-danger" style="color: red" type="submit">删除回复</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
-
-
-                                <div class="panel panel-default panel-faq">
-                                    <div class="row">
-                                        <div class="col-sm-9 col-md-9">
-                                            <a href="#myModal" data-toggle="modal" title="Compose"
-                                               class="btn btn-compose">
-                                                Reply</a>
-                                        </div>
-                                            <%--添加删除按钮--%>
-                                        <form action="${path}deleteMessage">
-                                            <input type="hidden" name="id" value="${s_message.getId()}">
-                                            <input type="hidden" name="jumpPath" value="messageManager.jsp">
-                                            <button class="btn btn-general btn-danger" style="color: red;margin-top: 0px" type="submit">删除</button>
-                                        </form>
-                                    </div>
-
-
-                                    <!-- Modal -->
-                                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
-                                         id="myModal" class="modal fade" style="display: none;">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <!--***** REPLY INFO *****-->
-                                                <div class="col-md-12">
-                                                    <div class="card form" id="form1">
-                                                        <div class="card-header">
-                                                            <h3 style="display: inline"><i
-                                                                    class="fa fa-commenting-o"></i>
-                                                                Send Reply</h3>
-                                                            <button aria-hidden="true" data-dismiss="modal"
-                                                                    class="close"
-                                                                    type="button">×
-                                                            </button>
-                                                        </div>
-                                                        <form action="user/addReply">
-                                                            <input type="hidden" value="${s_message.getId()}"
-                                                                   name="rmsgId">
-                                                            <div class="form-group">
-                                                                <label for="title">Title</label>
-                                                                <input type="text" class="form-control" id="title"
-                                                                       aria-describedby="title" name="rTitle"
-                                                                       placeholder="Enter title">
-                                                            </div>
-
-                                                            <div class="form-group" style="margin-top: 0;">
-                                                                <label for="exampleTextarea">Content</label>
-                                                                <textarea class="form-control" id="exampleTextarea"
-                                                                          rows="8" name="rContent"
-                                                                          placeholder="Let me hear your thought"></textarea>
-                                                            </div>
-
-                                                            <div class="row mt-3">
-                                                                <div class="col-md-12">
-                                                                    <div class="card-header">
-                                                                        <h3><i class="fa fa-user-circle"></i> User Info
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row" style="margin-top: 20px;">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="name">Full Name</label>
-                                                                        <input type="text" class="form-control"
-                                                                               id="Name" name="rName"
-                                                                               aria-describedby="emailHelp"
-                                                                               placeholder="Enter name">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="email">Email address</label>
-                                                                        <input type="email" class="form-control"
-                                                                               id="Email" name="rEmail"
-                                                                               aria-describedby="emailHelp"
-                                                                               placeholder="Enter email">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="name">Contact Num</label>
-                                                                        <input type="number" class="form-control"
-                                                                               name="rNumber"
-                                                                               id="number" aria-describedby="emailHelp"
-                                                                               placeholder="Enter number">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <button type="submit" class="btn btn-general btn-blue mr-2">
-                                                                Submit
-                                                            </button>
-                                                            <button type="reset" class="btn btn-general btn-white">
-                                                                Cancel
+                                                <div id="faq-sub-cat${s.index}-${s_reply.getReplyid()}"
+                                                     class="panel-collapse collapse">
+                                                    <div class="panel-body" style="padding-bottom: 0;">
+                                                        By: <a href="#">${s_reply.getUsername()}</a>
+                                                        at ${s_reply.getTime()}
+                                                    </div>
+                                                    <div class="panel-body" style="padding-top: 0;">
+                                                            ${s_reply.getContent()}
+                                                    </div>
+                                                    <div class="panel-body" style="padding-top: 0;">
+                                                            <%--添加删除按钮--%>
+                                                        <form action="${path}deleteReply">
+                                                            <input type="hidden" name="id"
+                                                                   value="${s_reply.getReplyid()}">
+                                                            <input type="hidden" name="jumpPath"
+                                                                   value="messageManager.jsp">
+                                                            <button class="btn btn-general btn-danger"
+                                                                    style="color: red"
+                                                                    type="submit">删除回复
                                                             </button>
                                                         </form>
+                                                            <%--编辑回复信息弹窗--%>
+                                                        <div class="panel panel-default panel-faq">
+                                                            <a href="#myModal-r--r-${s.index}" data-toggle="modal"
+                                                               title="Compose"
+                                                               class="btn btn-general btn-white">
+                                                                修改这条回复</a>
+                                                            <!-- Modal -->
+                                                            <div aria-hidden="true" aria-labelledby="myModalLabel"
+                                                                 role="dialog"
+                                                                 tabindex="-1"
+                                                                 id="myModal-r--r-${s.index}" class="modal fade"
+                                                                 style="display: none;">
+                                                                <div class="modal-dialog">
+                                                                    <div class="modal-content">
+                                                                        <div class="col-md-12">
+                                                                            <div class="card form" id="form111">
+                                                                                <div class="card-header">
+                                                                                    <h3 style="display: inline">
+                                                                                        <i class="fa fa-commenting-o"></i>
+                                                                                        回复信息标题: ${s_reply.getTitle()}
+                                                                                    </h3>
+                                                                                    <button aria-hidden="true"
+                                                                                            data-dismiss="modal"
+                                                                                            class="close" type="button">
+                                                                                        ×
+                                                                                    </button>
+                                                                                </div>
+                                                                                <form action="${path}updateReply">
+                                                                                        <%--                                                                                修改回复信息需要 回复信息的id--%>
+                                                                                    <input type="hidden" name="rId"
+                                                                                           value="${s_reply.getReplyid()}">
+                                                                                    <input type="hidden" name="jumpPath"
+                                                                                           value="messageManager.jsp">
+                                                                                    <input type="hidden"
+                                                                                           value="${s_message.getId()}"
+                                                                                           name="rmsgId">
+                                                                                    <div class="form-group">
+                                                                                        <label for="title-2">标题</label>
+                                                                                        <input type="text"
+                                                                                               class="form-control"
+                                                                                               id="title-2"
+                                                                                               aria-describedby="title"
+                                                                                               name="rTitle"
+                                                                                               placeholder="输入标题"
+                                                                                               value="${s_reply.getTitle()}">
+                                                                                    </div>
+
+                                                                                    <div class="form-group"
+                                                                                         style="margin-top: 0;">
+                                                                                        <label for="exampleTextarea-2">内容</label>
+                                                                                        <textarea class="form-control"
+                                                                                                  id="exampleTextarea-2"
+                                                                                                  rows="4"
+                                                                                                  name="rContent"
+                                                                                                  placeholder="回复内容">${s_reply.getContent()}</textarea>
+                                                                                    </div>
+                                                                                    <button type="submit"
+                                                                                            class="btn btn-general btn-blue mr-2">
+                                                                                        修改回复信息
+                                                                                    </button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- /.modal-content -->
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /.modal-content -->
-                                        </div>
+                                        </c:if>
+                                    </c:forEach>
 
-                                    </div>
+                                        <%--回复信息弹窗--%>
+                                    <div class="panel panel-default panel-faq">
+                                        <a href="#myModal-${status.index}" data-toggle="modal" title="Compose"
+                                           class="btn btn-compose">
+                                            回复ta</a>
 
-                                </div>
-                            </div>
-                                <%-- 点击可以留言 --%>
-                            <a class="btn btn-general btn-blue" href="#lMessage" data-toggle="modal" style="border-style: outset">
-                                <h3> 编辑留言 </h3>
-                            </a>
-                                <%--留言的 弹出窗口 --%>
-                            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lMessage"
-                                 class="modal fade" style="display: none;">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <!--***** USER INFO *****-->
-                                        <div class="col-md-12">
-                                            <div class="card form" id="lform">
-                                                <div class="card-header">
-                                                    <h3 style="display: inline"><i class="fa fa-commenting-o"></i>编辑留言</h3>
-                                                    <button aria-hidden="true" data-dismiss="modal" class="close"
-                                                            type="button">X
-                                                    </button>
-                                                </div>
-                                                <form action="<%=basePath%>addMessage" method="get">
-                                                    <div class="form-group">
-                                                        <label for="lTitle">标题</label>
-                                                        <input type="text" class="form-control" id="lTitle"
-                                                               placeholder="标题" name="lTitle" value="${s_message.getTitle()}">
-                                                    </div>
-
-                                                    <div class="form-group" style="margin-top: 0;">
-                                                        <label for="lTextarea">内容</label>
-                                                        <textarea class="form-control" id="lTextarea" rows="5"
-                                                                  placeholder="在这里发表你的看法！"
-                                                                  name="lContent">${s_message.getContent()}</textarea>
-                                                    </div>
-                                                    <div class="row mt-3">
-                                                        <div class="col-md-12">
+                                        <!-- Modal -->
+                                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+                                             tabindex="-1"
+                                             id="myModal-${status.index}" class="modal fade" style="display: none;">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!--***** REPLY INFO *****-->
+                                                    <div class="col-md-12">
+                                                        <div class="card form" id="form1">
                                                             <div class="card-header">
-                                                                <h3><i class="fa fa-user-circle"></i>提交人信息</h3>
+                                                                <h3 style="display: inline">
+                                                                    <i class="fa fa-commenting-o"></i>
+                                                                    回复ta: ${s_message.getTitle()}</h3>
+                                                                <button aria-hidden="true" data-dismiss="modal"
+                                                                        class="close" type="button">×
+                                                                </button>
                                                             </div>
+                                                            <form action="${path}addReply" method="post">
+                                                                <input type="hidden" name="jumpPath"
+                                                                       value="messageManager.jsp">
+                                                                <input type="hidden" value="${s_message.getId()}"
+                                                                       name="rmsgId">
+                                                                <div class="form-group">
+                                                                    <label for="title">标题</label>
+                                                                    <input type="text" class="form-control"
+                                                                           id="title"
+                                                                           aria-describedby="title" name="rTitle"
+                                                                           placeholder="输入标题">
+                                                                </div>
+
+                                                                <div class="form-group" style="margin-top: 0;">
+                                                                    <label for="exampleTextarea">内容</label>
+                                                                    <textarea class="form-control"
+                                                                              id="exampleTextarea"
+                                                                              rows="4" name="rContent"
+                                                                              placeholder="回复内容"></textarea>
+                                                                </div>
+
+                                                                <div class="row mt-3">
+                                                                    <div class="col-md-12">
+                                                                        <div class="card-header">
+                                                                            <h3><i class="fa fa-user-circle"></i>
+                                                                                你的信息
+                                                                            </h3>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row" style="margin-top: 20px;">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="name">名称</label>
+                                                                            <input type="text" class="form-control"
+                                                                                   id="Name" name="rName"
+                                                                                   aria-describedby="emailHelp"
+                                                                                   placeholder="名称">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="email">邮箱</label>
+                                                                            <input type="email" class="form-control"
+                                                                                   id="Email" name="rEmail"
+                                                                                   aria-describedby="emailHelp"
+                                                                                   placeholder="邮箱">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group">
+                                                                            <label for="name">电话号码</label>
+                                                                            <input type="tel"
+                                                                                   class="form-control"
+                                                                                   name="rNumber"
+                                                                                   id="number"
+                                                                                   aria-describedby="emailHelp"
+                                                                                   placeholder="电话号码">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <button type="submit"
+                                                                        class="btn btn-general btn-blue mr-2">
+                                                                    回复
+                                                                </button>
+                                                            </form>
                                                         </div>
                                                     </div>
-
-                                                    <div class="row" style="margin-top: 20px;">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="lName">名称</label>
-                                                                <input type="text" class="form-control" id="lName"
-                                                                       name="lName" placeholder="输入名称让我们知道你"
-                                                                value="${s_message.getUsername()}">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="lEmail">邮箱</label>
-                                                                <input type="email" class="form-control" id="lEmail"
-                                                                       name="lEmail" placeholder="输入邮箱让我们联系你"
-                                                                value="${s_message.getEmail()}">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="lNumber">电话</label>
-                                                                <input type="tel" class="form-control" id="lNumber"
-                                                                       name="lNum" placeholder="输入电话让我们联系你"
-                                                                value="${s_message.getPhonenum()}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-general btn-blue mr-2">提交
-                                                    </button>
-                                                    <button type="reset" class="btn btn-general btn-white">取消</button>
-                                                </form>
+                                                </div>
+                                                <!-- /.modal-content -->
                                             </div>
+
                                         </div>
 
                                     </div>
-                                    <!-- /.modal-content -->
+
+
                                 </div>
                             </div>
+
 
                         </div>
 

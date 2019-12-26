@@ -16,6 +16,30 @@ public class Message {
     private String email;
     private String phonenum;
     private String time;
+    /**
+     *  删除一条信息
+     */
+    public void updateMessageById(){
+        System.out.println("Message.updateMessageById()");
+        // 删除信息
+        String query_m = "update t_Message set title=?,content=? WHERE `messageid` = ?";
+        // 删除回复信息
+        Connection conn = null;
+        PreparedStatement pstmt_m = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt_m = conn.prepareStatement(query_m);
+            pstmt_m.setString(1, title);
+            pstmt_m.setString(2, content);
+            pstmt_m.setInt(3, id);
+            pstmt_m.executeUpdate();
+            System.out.println("dupdateMessageById success");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt_m, null);
+        }
+    }
 
     /**
      *  删除一条信息

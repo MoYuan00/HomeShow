@@ -59,7 +59,7 @@
                 <c:choose>
                     <c:when test="${sessionScope.un != null}">
                         <li>
-                            <a rel="nofollow" href="log/toLogout" class="dropdown-item">
+                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
                                 <div class="notification">
                                     <div class="notification-content">
                                         <i class="fa fa-power-off"></i>登出
@@ -107,45 +107,56 @@
     </nav>
 
     <!--***** CONTENT INNER *****-->
-    <div class="content-inner col-md-9" style="">
-
+    <div class="content-inner col-md-9" >
+        <div style="padding: 10px">
+            <p class="text-info">
+                <strong>北京</strong>被世界权威机构GaWC评为世界一线城市  。截至2018年末，北京常住人口2154.2万人，实现地区生产总值（GDP）30320亿元，人均地区生产总值实现14万元    。社会消费品零售总额11747.7亿元，批发业销售额57383.1亿元，人均可支配收入62361元，住户存款总额32507.8亿元，高新技术企业总数24691家  。联合国报告指出北京人类发展指数居中国城市第二位。
+            </p>
+        </div>
         <div id="demo" class="carousel slide" data-ride="carousel">
             <!-- 指示符 -->
             <ul class="carousel-indicators" style="">
                 <li data-target="#demo" data-slide-to="0" class="active"></li>
                 <li data-target="#demo" data-slide-to="1"></li>
                 <li data-target="#demo" data-slide-to="2"></li>
+                <li data-target="#demo" data-slide-to="3"></li>
             </ul>
             <!-- 轮播图片 -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./img/w1.jpg" class="img-fluid" style="border-radius: 10%; width:1560px; height:800px;"
-                         alt="img-1">
-                </div>
-                <div class="carousel-item">
-                    <img src="./img/w2.jpg" class="img-fluid" style="border-radius: 10%; width:1560px; height:800px;"
+                    <img src="./img/index1.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
                          alt="img-2">
                 </div>
                 <div class="carousel-item">
-                    <img src="./img/w3.jpg" class="img-fluid" style="border-radius: 10%; width:1560px; height:800px;"
+                    <img src="./img/index2.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
+                         alt="img-2">
+                </div>
+                <div class="carousel-item">
+                    <img src="./img/index3.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
                          alt="img-3">
+                </div>
+                <div class="carousel-item">
+                    <img src="./img/index4.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
+                         alt="img-4">
                 </div>
             </div>
             <!-- 左右切换按钮 -->
-            <a class="carousel-control-prev" href="#demo" data-slide="prev" style="">
+            <a class="carousel-control-prev" href="#demo" data-slide="prev"  >
                 <span class="carousel-control-prev-icon"></span>
             </a>
-            <a class="carousel-control-next" href="#demo" data-slide="next" style="">
+            <a class="carousel-control-next" href="#demo" data-slide="next" >
                 <span class="carousel-control-next-icon"></span>
             </a>
         </div>
 
         <div style="margin-top: 50px;">
-            <a href=""><img src="./img/w1.jpg" class="img-fluid"
+            <a href=""><img src="./img/index1.png" class="img-fluid"
                             style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-1"></a>
-            <a href=""><img src="./img/w2.jpg" class="img-fluid"
+            <a href=""><img src="./img/index2.png" class="img-fluid"
                             style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-2"></a>
-            <a href=""><img src="./img/w3.jpg" class="img-fluid"
+            <a href=""><img src="./img/index3.png" class="img-fluid"
+                            style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-3"></a>
+            <a href=""><img src="./img/index4.png" class="img-fluid"
                             style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-3"></a>
         </div>
     </div>

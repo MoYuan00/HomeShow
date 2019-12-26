@@ -30,7 +30,7 @@
     content = profile.getFTRQContent();
     replies = profile.getFTRQImages();
     pageContext.setAttribute( "ftrq_content", content);
-    pageContext.setAttribute("fftrq_list", replies);
+    pageContext.setAttribute("ftrq_list", replies);
 
 
 %>
@@ -95,22 +95,35 @@
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                 <c:choose>
                     <c:when test="${sessionScope.un != null}">
-                        <a rel="nofollow" href="log/toLogout" class="dropdown-item">
-                            <div class="notification">
-                                <div class="notification-content">
-                                    <i class="fa fa-power-off"></i>登出
+                        <li>
+                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content">
+                                        <i class="fa fa-power-off"></i>登出
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </li>
                     </c:when>
                     <c:otherwise>
-                        <a rel="nofollow" href="login.jsp" class="dropdown-item">
-                            <div class="notification">
-                                <div class="notification-content">
-                                    <i class="fa fa-power-off"></i>登录
+                        <li>
+                            <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content">
+                                        <i class="fa fa-power-off"></i>登录
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" href="register.jsp" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>
+                                        注册
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
                     </c:otherwise>
                 </c:choose>
             </ul>
@@ -139,54 +152,60 @@
                     <div class="tab" role="tabpanel">
                         <!-- Tab panes -->
                         <div class="tab-content tabs">
-                            <h2>美景简介</h2>
-                            <div role="tabpanel" class="tab-pane fade show active"  >
-                                <%--                                简介内容--%>
-                                <p>${pageScope.mj_content}</p>
-                                <div class="row mt-3">
-                                    <%--    简介图片--%>
+                            <div style="margin-bottom: 30px">
+                                <h2>美景简介</h2>
+                                <div role="tabpanel" class="tab-pane fade show active"  >
+                                    <%--                                简介内容--%>
+                                    <p>${pageScope.mj_content}</p>
                                     <div class="row mt-3">
-                                        <c:forEach var="image" items="${pageScope.mj_list}">
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="${image.getImg()}">
+                                        <%--    简介图片--%>
+                                        <div class="row mt-3">
+                                            <c:forEach var="image" items="${pageScope.mj_list}">
+                                                <div class="col-md-4 col-sm-6 mt-1">
+                                                    <div class="box-4">
+                                                        <img src="${image.getImg()}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <h2>美食简介</h2>
-                            <div role="tabpanel" class="tab-pane fade show active" >
-                                <%--                                简介内容--%>
-                                <p>${pageScope.food_content}</p>
-                                <div class="row mt-3">
-                                    <%--    简介图片--%>
+                            <div style="margin-bottom: 30px">
+                                <h2>美食简介</h2>
+                                <div role="tabpanel" class="tab-pane fade show active" >
+                                    <%--                                简介内容--%>
+                                    <p>${pageScope.food_content}</p>
                                     <div class="row mt-3">
-                                        <c:forEach var="image" items="${pageScope.food_list}">
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="${image.getImg()}">
+                                        <%--    简介图片--%>
+                                        <div class="row mt-3">
+                                            <c:forEach var="image" items="${pageScope.food_list}">
+                                                <div class="col-md-4 col-sm-6 mt-1">
+                                                    <div class="box-4">
+                                                        <img src="${image.getImg()}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <h2>风土人情简介</h2>
-                            <div role="tabpanel" class="tab-pane fade show active"  >
-                                <%--                                简介内容--%>
-                                <p>${pageScope.food_content}</p>
-                                <div class="row mt-3">
-                                    <%--    简介图片--%>
+                            <div style="margin-bottom: 30px">
+                                <h2>风土人情简介</h2>
+                                <div role="tabpanel" class="tab-pane fade show active"  >
+                                    <%--                                简介内容--%>
+                                    <p>${pageScope.ftrq_content}</p>
                                     <div class="row mt-3">
-                                        <c:forEach var="image" items="${pageScope.fftrq_list}">
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="${image.getImg()}">
+                                        <%--    简介图片--%>
+                                        <div class="row mt-3">
+                                            <c:forEach var="image" items="${pageScope.ftrq_list}">
+                                                <div class="col-md-4 col-sm-6 mt-1">
+                                                    <div class="box-4">
+                                                        <img src="${image.getImg()}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

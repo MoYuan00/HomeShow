@@ -12,10 +12,11 @@ import java.io.IOException;
 @WebServlet(name = "AddReplyAction", urlPatterns = "/addReply")
 public class AddReplyAction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
         System.out.println("/user/addReply");
         Reply r = new Reply();
         r.setMessageid(Integer.parseInt(request.getParameter("rmsgId")));

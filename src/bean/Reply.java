@@ -19,6 +19,31 @@ public class Reply {
     private String phonenum;
     private String time;
 
+    /**
+     * 通过id修改回复信息
+     */
+    public void updateReplyById(){
+        System.out.println("Reply.updateReplyById");
+        // 删除信息
+        // 删除回复信息
+        String query_r = "update t_Reply set title=?, content=?  WHERE `replyid` = ?";
+        Connection conn = null;
+        PreparedStatement pstmt_r = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt_r = conn.prepareStatement(query_r);
+            pstmt_r.setString(1, title);
+            pstmt_r.setString(2, content);
+            pstmt_r.setInt(3, replyid);
+            pstmt_r.executeUpdate();
+            System.out.println("updateReplyById   success");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt_r, null);
+        }
+    }
+
     public void deleteReplyById(){
         System.out.println("Reply.deleteReplyById()");
         // 删除信息
@@ -63,6 +88,8 @@ public class Reply {
                 r.setContent(rs_reply.getString("content"));
                 r.setTime(rs_reply.getString("time"));
                 r.setUsername(rs_reply.getString("username"));
+                r.setEmail(rs_reply.getString("email"));
+                r.setPhonenum(rs_reply.getString("phonenum"));
                 replies.add(r);
             }
         }catch (Exception e) {

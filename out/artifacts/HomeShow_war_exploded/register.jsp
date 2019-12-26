@@ -44,12 +44,12 @@
                     <h3 class="text-center">家乡展示管理平台<img src="" class="img-fluid" alt=""></h3><br>
                     <form action="<%=basePath%>user/register" method="post">
                         <div class="form-group">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" placeholder="Enter Username" value="${username}" name="username">
+                            <label for="username">用户名</label>
+                            <input type="text" class="form-control" id="username" placeholder="username" value="${username}" name="username">
                         </div>
                         <div class="form-group">
-                            <label for="example-password-input">Password</label>
-                            <input class="form-control" type="password"  id="example-password-input"  placeholder="Enter Password" value="${password}" name="password">
+                            <label for="example-password-input">密码</label>
+                            <input class="form-control" type="password"  id="example-password-input"  placeholder="password" value="${password}" name="password">
                         </div>
 
                         <%
@@ -62,8 +62,8 @@
                             }
                         %>
 
-                        <button class="btn btn-general btn-blue" role="button">Register</button>
-                        <button class="btn btn-general btn-white" type="button" style="float: right;" onclick = "window.location.href = '${path}index.jsp'">Login</button>
+                        <button class="btn btn-general btn-blue" role="button">注册</button>
+                        <button class="btn btn-general btn-white" type="button" style="float: right;" onclick = "window.location.href = '${path}index.jsp'">取消</button>
 
                     </form>
                 </div>

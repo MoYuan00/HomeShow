@@ -18,10 +18,12 @@ public class addMessage extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        doGet(request, response);
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("utf-8");
         String title=request.getParameter("lTitle");
         String content=request.getParameter("lContent");
         String username = request.getParameter("lName");
@@ -41,6 +43,7 @@ public class addMessage extends HttpServlet {
             pstmt.setString(4,email);
             pstmt.setString(5,phonenum);
             pstmt.executeUpdate();
+            System.out.println("跳转到: " + jumpPath);
             // if no error back to message
             response.sendRedirect(jumpPath);
         }catch (Exception e) {
