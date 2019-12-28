@@ -33,11 +33,13 @@ public class loginAction extends HttpServlet {
         user.setPassword(password);
         user = user.selectByNameAndPassword();
         if (user == null) {// 失败
-            request.setAttribute("message", "Username or Password Error");
+            request.setAttribute("message", "用户名或密码错误！");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }else{// 成功
 			HttpSession session = request.getSession();
 			session.setAttribute("un", user.getUsername());
+			session.setAttribute("userId", user.getId());
+            System.out.println("登录id：" + user.getId());
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}
 
