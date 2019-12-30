@@ -3,11 +3,22 @@
          pageEncoding="UTF-8" import="java.lang.*" %>
 <%@ page import="bean.Message" %>
 <%@ page import="bean.Reply" %>
+<%@ page import="bean.User" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     request.setAttribute("path", basePath);
 
+    Integer userId = (Integer) session.getAttribute("userId");
+    if (userId == null) {// 如果没有登录
+        response.sendRedirect("./login.jsp");
+        return;
+    }
+    // 获取用户的所有信息
+    User user = new User();
+    user.setId(userId);
+    user = user.getUserInfoById();
+    pageContext.setAttribute("user", user);// 放入页面环境
     /*
         获取留言
      */
@@ -64,7 +75,7 @@
             <div class="navbar-holder d-flex align-items-center justify-content-between">
                 <div class="navbar-header">
                     <a href="index.jsp" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down">Hi ${sessionScope.un}</div>
+                        <div class="brand-text brand-big hidden-lg-down">Hi ${user.username}</div>
                         <div class="brand-text brand-small">
                             <img src="img/logo-icon.png" alt="Logo" class="img-fluid">
                         </div>
@@ -88,75 +99,20 @@
                        href="profile.jsp" data-toggle="dropdown" aria-haspopup="true"
                        aria-expanded="false">
                         <div class="photo">
-                            <c:choose>
-                                <c:when test="${sessionScope.un != null}">
-                                    <img src="img/head.png" alt="..." class="img-fluid rounded-circle"
-                                         style="height: 50px; width: 50px;">
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="i¨mg/work/3.jpg" alt="..." class="img-fluid rounded-circle"
-                                         style="height: 50px; width: 50px;">
-                                </c:otherwise>
-                            </c:choose>
+                            <img src="${user.portrait_image}" alt="头像" class="img-fluid rounded-circle"
+                                 style="height: 50px; width: 50px;">
                         </div>
                     </a>
                     <%--                    点击头像的下拉菜单--%>
                     <ul aria-labelledby="profile" class="dropdown-menu profile">
-<%--                        <li>--%>
-<%--                            <a rel="nofollow" href="#" class="dropdown-item d-flex">--%>
-<%--                                <div class="msg-profile">--%>
-<%--                                    <c:choose>--%>
-<%--                                        <c:when test="${sessionScope.un != null}">--%>
-<%--                                            <img src="img/head.png" alt="..." class="img-fluid rounded-circle">--%>
-<%--                                        </c:when>--%>
-<%--                                        <c:otherwise>--%>
-<%--                                            <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle">--%>
-<%--                                        </c:otherwise>--%>
-<%--                                    </c:choose>--%>
-<%--                                </div>--%>
-<%--                                <div class="msg-body">--%>
-<%--                                    <h3 class="h5">Hi ${sessionScope.un}</h3>--%>
-<%--                                    <span>huhanlin@bjfu.edu.cn</span>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <hr>--%>
-<%--                        </li>--%>
-<%--                        <li>--%>
-<%--                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">--%>
-<%--                                <div class="notification">--%>
-<%--                                    <div class="notification-content"><i class="fa fa-user "></i>My Profile</div>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                        </li>--%>
-<%--                        <li>--%>
-<%--                            <a rel="nofollow" href="profile.jsp" class="dropdown-item">--%>
-<%--                                <div class="notification">--%>
-<%--                                    <div class="notification-content"><i class="fa fa-cog"></i>...</div>--%>
-<%--                                </div>--%>
-<%--                            </a>--%>
-<%--                            <hr>--%>
-<%--                        </li>--%>
                         <li>
-                            <c:choose>
-                                <c:when test="${sessionScope.un != null}">
-                                    <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
-                                        <div class="notification">
-                                            <div class="notification-content"><i class="fa fa-power-off"></i>
-                                                退出登录
-                                            </div>
-                                        </div>
-                                    </a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
-                                        <div class="notification">
-                                            <div class="notification-content"><i class="fa fa-power-off"></i>
-                                                登录
-                                            </div>
-                                        </div>
-                                    </a>
-                                </c:otherwise>
-                            </c:choose>
+                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>
+                                        退出登录
+                                    </div>
+                                </div>
+                            </a>
                         </li>
                     </ul>
                 </li>
@@ -176,16 +132,9 @@
         <div class="sidebar-header d-flex align-items-center">
             <div class="avatar">
                 <div class="photo">
-                    <c:choose>
-                        <c:when test="${sessionScope.un != null}">
-                            <img src="img/head.png" alt="..." class="img-fluid rounded-circle"
-                                 style="height: 50px; width: 50px;">
-                        </c:when>
-                        <c:otherwise>
-                            <img src="img/work/3.jpg" alt="..." class="img-fluid rounded-circle"
-                                 style="height: 50px; width: 50px;">
-                        </c:otherwise>
-                    </c:choose>
+                    <img src="${user.portrait_image}" alt="..." class="img-fluid rounded-circle"
+                         style="height: 50px; width: 50px;">
+
                 </div>
             </div>
             <hr>
@@ -223,50 +172,19 @@
                                                         type="button">X
                                                 </button>
                                             </div>
-                                            <form action="<%=basePath%>addMessage" method="post">
+                                            <form action="${path}addMessage" method="post">
                                                 <input type="hidden" name="jumpPath" value="messageBoard.jsp">
+                                                <input type="hidden" name="user_id" value="${user.id}">
                                                 <div class="form-group">
                                                     <label for="lTitle">标题</label>
                                                     <input type="text" class="form-control" id="lTitle"
-                                                           placeholder="标题" name="lTitle">
+                                                           placeholder="标题" name="title">
                                                 </div>
-
                                                 <div class="form-group" style="margin-top: 0;">
                                                     <label for="lTextarea">内容</label>
                                                     <textarea class="form-control" id="lTextarea" rows="5"
                                                               placeholder="在这里发表你的看法！"
-                                                              name="lContent"></textarea>
-                                                </div>
-
-                                                <div class="row mt-3">
-                                                    <div class="col-md-12">
-                                                        <div class="card-header">
-                                                            <h3><i class="fa fa-user-circle"></i>你的信息</h3>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row" style="margin-top: 20px;">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="lName">名称</label>
-                                                            <input type="text" class="form-control" id="lName"
-                                                                   name="lName" placeholder="输入名称让我们知道你">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="lEmail">邮箱</label>
-                                                            <input type="email" class="form-control" id="lEmail"
-                                                                   name="lEmail" placeholder="输入邮箱让我们联系你">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="lNumber">电话</label>
-                                                            <input type="tel" class="form-control" id="lNumber"
-                                                                   name="lNum" placeholder="输入电话让我们联系你">
-                                                        </div>
-                                                    </div>
+                                                              name="content"></textarea>
                                                 </div>
                                                 <button type="submit" class="btn btn-general btn-blue mr-2">提交
                                                 </button>
@@ -330,23 +248,23 @@
                                             </h4>
                                         </a>
                                     </div>
-                                    <div id="faq-sub-cat${s_message.getId()}" class="panel-collapse active">
+                                    <div id="faq-sub-cat${s_message.id}" class="panel-collapse active">
                                         <div class="panel-body">
                                             <ul>
                                                 <li class="list-group-item">
                                                     <div class="row">
                                                         <div class="col-md-2">
-                                                            <img src="img/avatar-2.jpg" class="img-circle img-fluid"
-                                                                 alt=""/></div>
+                                                            <img src="${s_message.user.portrait_image}" class="img-circle img-fluid "
+                                                                 alt="头像" /></div>
                                                         <div class=" col-md-10">
                                                             <div>
                                                                 <div class="mic-info">
-                                                                    By: <a href="#">${s_message.getUsername()}</a>
-                                                                    at ${s_message.getTime()}
+                                                                    <a href="#">${s_message.user.username}</a>
+                                                                    ： ${s_message.time}
                                                                 </div>
                                                             </div>
                                                             <div class="comment-text">
-                                                                    ${s_message.getContent()}
+                                                                    ${s_message.content}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -357,26 +275,26 @@
                                 </div>
                                     <%--一条留言的回复（每条留言都可以有多条回复）--%>
                                 <c:forEach var="s_reply" items="${replies}" varStatus="s">
-                                    <c:if test="${s_reply.getMessageid().equals(s_message.getId())}">
+                                    <c:if test="${s_reply.messageid.equals(s_message.id)}">
                                         <%--SHOW REPLY--%>
                                         <div class="panel panel-default panel-faq">
                                             <div class="panel-heading">
                                                 <a data-toggle="collapse" data-parent="#accordion-${s.index}"
-                                                   href="#faq-sub-cat${s.index}-${s_reply.getReplyid()}">
+                                                   href="#faq-sub-cat${s.index}-${s_reply.replyid}">
                                                     <h4 class="panel-title">
-                                                            ${s_reply.getTitle()}
+                                                            ${s_reply.title}
                                                         <span class="pull-right"><i class="fa fa-plus"></i></span>
                                                     </h4>
                                                 </a>
                                             </div>
-                                            <div id="faq-sub-cat${s.index}-${s_reply.getReplyid()}"
+                                            <div id="faq-sub-cat${s.index}-${s_reply.replyid}"
                                                  class="panel-collapse collapse">
                                                 <div class="panel-body" style="padding-bottom: 0;">
-                                                    By: <a href="#">${s_reply.getUsername()}</a>
-                                                    at ${s_reply.getTime()}
+                                                    By: <a href="#">${s_reply.username}</a>
+                                                    at ${s_reply.time}
                                                 </div>
                                                 <div class="panel-body" style="padding-top: 0;">
-                                                        ${s_reply.getContent()}
+                                                        ${s_reply.content}
                                                 </div>
                                             </div>
                                         </div>

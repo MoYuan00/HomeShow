@@ -16,7 +16,7 @@
     request.setAttribute("path", basePath);
 
     Profile profile = new Profile();
-    String content = profile.getFoodContent();
+    String content = profile.getFoodProfile();
     List<Images> replies = profile.getFoodImages();
     pageContext.setAttribute("content", content);
     pageContext.setAttribute("list", replies);

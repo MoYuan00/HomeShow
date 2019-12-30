@@ -11,7 +11,7 @@ import java.util.List;
 public class Images {
     private int id;
     private String img;
-    private String type;
+    private int profile_id;
 
     /**
      *  添加一个图片
@@ -19,14 +19,14 @@ public class Images {
      */
     public Images addImage(){
         System.out.println("Images.addImage");
-        String query = "insert into t_images (img,type) values(?, ?) ";
+        String query = "insert into t_images (img,profile_id) values(?, ?) ";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try{
             conn = C3P0JdbcUtil.getConnection();
             pstmt = conn.prepareStatement(query);
             pstmt.setString(1, img);
-            pstmt.setString(2, type);
+            pstmt.setInt(2, profile_id);
             int re = pstmt.executeUpdate();
             // 获取插入的主键
             ResultSet keys = pstmt.getGeneratedKeys();
@@ -64,32 +64,40 @@ public class Images {
     }
 
 
-    public List<Images> getImagesByType(String type){
-        String query_reply = "SELECT * FROM t_images WHERE type = '" + type + "'";
+    public List<Images> getImagesByProfileId(){
+        String query_reply = "SELECT * FROM t_images WHERE profile_id=?";
         Connection conn = null;
-        PreparedStatement pstmt_reply = null;
-        ResultSet rs_reply = null;
-        List<Images> replies = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<Images> imagesList = new ArrayList<>();
         try{
             conn = C3P0JdbcUtil.getConnection();
-            pstmt_reply = conn.prepareStatement(query_reply);
-            rs_reply = pstmt_reply.executeQuery();
-            while(rs_reply.next()){
+            pstmt = conn.prepareStatement(query_reply);
+            pstmt.setInt(1, this.profile_id);
+            rs = pstmt.executeQuery();
+            while(rs.next()){
                 Images images = new Images();
-                images.setId(rs_reply.getInt("id"));
-                images.setType(rs_reply.getString("type"));
-                images.setImg(rs_reply.getString("img"));
-                replies.add(images);
+                images.setId(rs.getInt("id"));
+                images.setImg(rs.getString("img"));
+                images.setProfile_id(rs.getInt("profile_id"));
+                imagesList.add(images);
             }
-            return replies;
+            return imagesList;
         }catch (Exception e) {
             e.printStackTrace();
         }finally {
-            C3P0JdbcUtil.release(conn, pstmt_reply, rs_reply);
+            C3P0JdbcUtil.release(conn, pstmt, rs);
         }
-        return replies;
+        return imagesList;
     }
 
+    public int getProfile_id() {
+        return profile_id;
+    }
+
+    public void setProfile_id(int profile_id) {
+        this.profile_id = profile_id;
+    }
 
     public int getId() {
         return id;
@@ -107,11 +115,4 @@ public class Images {
         this.img = img;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

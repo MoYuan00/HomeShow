@@ -16,7 +16,7 @@
     request.setAttribute("path", basePath);
 
     Profile profile = new Profile();
-    String content = profile.getFTRQContent();
+    String content = profile.getFTRQProfile();
     List<Images> replies = profile.getFTRQImages();
     pageContext.setAttribute("content", content);
     pageContext.setAttribute("list", replies);

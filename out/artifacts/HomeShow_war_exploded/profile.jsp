@@ -9,7 +9,7 @@
     request.setAttribute("path", basePath);
 
     Profile profile = new Profile();
-    String content = profile.getJXJJContent();
+    String content = profile.getJXJJProfile();
     List<Images> replies = profile.getJXJJImages();
     pageContext.setAttribute("content", content);
     pageContext.setAttribute("list", replies);

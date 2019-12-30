@@ -30,8 +30,8 @@ public class AddImages extends HttpServlet {
             System.out.println("存入数据库url: " + path);
             Images images = new Images();
             String type = items.get("type").toString();
-            images.setType(type);
             images.setImg(path);
+            images.setProfile_id(Integer.parseInt(items.get("id").toString().trim()));
             images.addImage();
         }
         String jumpPath = items.get("jumpPath").toString();

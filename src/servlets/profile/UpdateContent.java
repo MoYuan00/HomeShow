@@ -1,6 +1,5 @@
 package servlets.profile;
 
-import bean.Images;
 import bean.Profile;
 
 import javax.servlet.ServletException;
@@ -21,12 +20,12 @@ public class UpdateContent extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         // 获取内容
         String content = req.getParameter("content");
+        String title = req.getParameter("title");
         System.out.println("要保存的内容为：" + content);
-        String type =  (req.getParameter("type"));
         Profile profile = new Profile();
-        profile.setType(type);
         profile.setContent(content);
-        profile.updateContent();
+        profile.setTitle(title);
+        profile.updateProfile();
         String jumpPath = req.getParameter("jumpPath");
         System.out.println("跳转到: " + jumpPath);
         resp.sendRedirect(jumpPath);

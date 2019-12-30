@@ -16,7 +16,7 @@
     request.setAttribute("path", basePath);
 
     Profile profile = new Profile();
-    String content = profile.getMJContent();
+    String content = profile.getMJProfile();
     List<Images> replies = profile.getMJImages();
     pageContext.setAttribute("content", content);
     pageContext.setAttribute("list", replies);

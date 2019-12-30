@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.lang.*" %>
+<%@ page import="java.io.File" %>
+<%@ page import="java.util.Arrays" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -107,58 +109,61 @@
     </nav>
 
     <!--***** CONTENT INNER *****-->
-    <div class="content-inner col-md-9" >
+    <div class="content-inner col-md-9">
         <div style="padding: 10px">
             <p class="text-info">
-                <strong>北京</strong>被世界权威机构GaWC评为世界一线城市  。截至2018年末，北京常住人口2154.2万人，实现地区生产总值（GDP）30320亿元，人均地区生产总值实现14万元    。社会消费品零售总额11747.7亿元，批发业销售额57383.1亿元，人均可支配收入62361元，住户存款总额32507.8亿元，高新技术企业总数24691家  。联合国报告指出北京人类发展指数居中国城市第二位。
+                <strong>北京</strong>被世界权威机构GaWC评为世界一线城市 。截至2018年末，北京常住人口2154.2万人，实现地区生产总值（GDP）30320亿元，人均地区生产总值实现14万元
+                。社会消费品零售总额11747.7亿元，批发业销售额57383.1亿元，人均可支配收入62361元，住户存款总额32507.8亿元，高新技术企业总数24691家
+                。联合国报告指出北京人类发展指数居中国城市第二位。
             </p>
         </div>
-        <div id="demo" class="carousel slide" data-ride="carousel">
+        <div id="demo" class="carousel slide" data-ride="carousel" style="background-color: #00000011;">
             <!-- 指示符 -->
             <ul class="carousel-indicators" style="">
                 <li data-target="#demo" data-slide-to="0" class="active"></li>
                 <li data-target="#demo" data-slide-to="1"></li>
                 <li data-target="#demo" data-slide-to="2"></li>
                 <li data-target="#demo" data-slide-to="3"></li>
+                <li data-target="#demo" data-slide-to="4"></li>
             </ul>
             <!-- 轮播图片 -->
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="./img/index1.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
+            <div class="carousel-inner ">
+                <div class="carousel-item active text-center">
+                    <img src="img/index/20150729040713452.jpg" class="img-fluid"
+                         style="   max-width:100%; height:400px;"
                          alt="img-2">
                 </div>
-                <div class="carousel-item">
-                    <img src="./img/index2.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
+                <div class="carousel-item  text-center">
+                    <img src="img/index/timg.jpg" class="img-fluid"
+                         style="  max-width:100%; height:400px;"
                          alt="img-2">
                 </div>
-                <div class="carousel-item">
-                    <img src="./img/index3.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
-                         alt="img-3">
+                <div class="carousel-item  text-center">
+                    <img src="img/index/timg%20(2).jpg" class="img-fluid"
+                         style="  max-width:100%; height:400px;"
+                         alt="img-2">
                 </div>
-                <div class="carousel-item">
-                    <img src="./img/index4.png" class="img-fluid" style="border-radius: 10%; width:100%; height:400px;"
-                         alt="img-4">
+                <div class="carousel-item  text-center">
+                    <img src="img/index/timg%20(7).jpg" class="img-fluid"
+                         style="  max-width:100%; height:400px;"
+                         alt="img-2">
                 </div>
+                <div class="carousel-item  text-center">
+                    <img src="img/index/timg%20(8).jpg" class="img-fluid"
+                         style=" max-width:100%; height:400px;"
+                         alt="img-2">
+                </div>
+
             </div>
             <!-- 左右切换按钮 -->
-            <a class="carousel-control-prev" href="#demo" data-slide="prev"  >
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
             </a>
-            <a class="carousel-control-next" href="#demo" data-slide="next" >
+            <a class="carousel-control-next" href="#demo" data-slide="next">
                 <span class="carousel-control-next-icon"></span>
             </a>
         </div>
 
-        <div style="margin-top: 50px;">
-            <a href=""><img src="./img/index1.png" class="img-fluid"
-                            style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-1"></a>
-            <a href=""><img src="./img/index2.png" class="img-fluid"
-                            style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-2"></a>
-            <a href=""><img src="./img/index3.png" class="img-fluid"
-                            style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-3"></a>
-            <a href=""><img src="./img/index4.png" class="img-fluid"
-                            style="border-radius: 10%; width: 250px; margin: 0 10px;" alt="img-3"></a>
-        </div>
     </div>
 </div>
 

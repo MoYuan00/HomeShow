@@ -8,31 +8,11 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     request.setAttribute("path", basePath);
 
-    // 获取数据
     Profile profile = new Profile();
-
-    String content = null;
-    List<Images> replies = null;
-
-    // 获取 美景
-    content = profile.getMJContent();
-    replies = profile.getMJImages();
-    pageContext.setAttribute( "mj_content", content);
-    pageContext.setAttribute("mj_list", replies);
-
-    // 获取 美食
-    content = profile.getFoodContent();
-    replies = profile.getFoodImages();
-    pageContext.setAttribute( "food_content", content);
-    pageContext.setAttribute("food_list", replies);
-
-    // 获取 风土人情
-    content = profile.getFTRQContent();
-    replies = profile.getFTRQImages();
-    pageContext.setAttribute( "ftrq_content", content);
-    pageContext.setAttribute("ftrq_list", replies);
-
-
+    String content = profile.getFoodProfile();
+    List<Images> replies = profile.getFoodImages();
+    pageContext.setAttribute("content", content);
+    pageContext.setAttribute("list", replies);
 %>
 <!DOCTYPE html>
 <html>
@@ -43,23 +23,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
 
-    <title> 特色介绍 </title>
+    <title>美食简介</title>
     <link rel="shortcut icon" href="img/favicon.ico">
 
     <!-- global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/font-icon-style.css">
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="${path}css/bootstrap.min.css">
+    <link rel="stylesheet" href="${path}font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${path}css/font-icon-style.css">
+    <link rel="stylesheet" href="${path}css/style.default.css" id="theme-stylesheet">
 
     <!-- Core stylesheets -->
-    <link rel="stylesheet" href="css/ui-elements/card.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/ui-elements/timeline.css">
-    <link rel="stylesheet" href="css/profile.css">
-    <link rel="stylesheet" href="css/pages/gallery.css">
-    <link rel="stylesheet" href="css/apps/media.css">
+    <link rel="stylesheet" href="${path}css/ui-elements/card.css">
+    <link rel="stylesheet" href="${path}css/style.css">
+    <link rel="stylesheet" href="${path}css/ui-elements/timeline.css">
+    <link rel="stylesheet" href="${path}css/profile.css">
+    <link rel="stylesheet" href="${path}css/pages/gallery.css">
+    <link rel="stylesheet" href="${path}css/apps/media.css">
     <!-- jstl -->
     <%--<%@ taglib prefix="co" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 </head>
@@ -90,6 +70,14 @@
                         <span></span>
                         <span></span>
                     </a>
+                </div>
+            </div>
+            <%--            固定在头部的搜索框 - 搜索当前页面的内容--%>
+            <div class="form-inline fixed-top row justify-content-center " style=" top:10px;">
+                <div class="col-md-6 col-sm-9  col-lg-8 text-center" style="background:#ffffff33; padding: 10px; border-radius: 30px" >
+                    <input class="form-control text-right" id="key" type="text" placeholder="查找"  />
+                    <button type="button" class="btn btn-sm btn-white "  onclick="next()"  >下一个</button>
+                    <button type="button" class="btn btn-sm btn-white"  onclick="previous()"  >上一个</button>
                 </div>
             </div>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -147,65 +135,26 @@
 
         <!--***** CONTENT *****-->
         <div class="row mt-2" id="card-prof">
+
             <div class="col-md-9">
                 <div class="card hovercard">
                     <div class="tab" role="tabpanel">
                         <!-- Tab panes -->
                         <div class="tab-content tabs">
-                            <div style="margin-bottom: 30px">
-                                <h2>美景简介</h2>
-                                <div role="tabpanel" class="tab-pane fade show active"  >
-                                    <%--                                简介内容--%>
-                                    <p>${pageScope.mj_content}</p>
+                            <h2>美食简介</h2>
+                            <div role="tabpanel" class="tab-pane fade show active" id="prof">
+                                <%--                                简介内容--%>
+                                <p>${pageScope.content}</p>
+                                <div class="row mt-3">
+                                    <%--    简介图片--%>
                                     <div class="row mt-3">
-                                        <%--    简介图片--%>
-                                        <div class="row mt-3">
-                                            <c:forEach var="image" items="${pageScope.mj_list}">
-                                                <div class="col-md-4 col-sm-6 mt-1">
-                                                    <div class="box-4">
-                                                        <img src="${image.getImg()}">
-                                                    </div>
+                                        <c:forEach var="image" items="${list}">
+                                            <div class="col-md-4 col-sm-6 mt-1">
+                                                <div class="box-4">
+                                                    <img src="${image.img}">
                                                 </div>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 30px">
-                                <h2>美食简介</h2>
-                                <div role="tabpanel" class="tab-pane fade show active" >
-                                    <%--                                简介内容--%>
-                                    <p>${pageScope.food_content}</p>
-                                    <div class="row mt-3">
-                                        <%--    简介图片--%>
-                                        <div class="row mt-3">
-                                            <c:forEach var="image" items="${pageScope.food_list}">
-                                                <div class="col-md-4 col-sm-6 mt-1">
-                                                    <div class="box-4">
-                                                        <img src="${image.getImg()}">
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="margin-bottom: 30px">
-                                <h2>风土人情简介</h2>
-                                <div role="tabpanel" class="tab-pane fade show active"  >
-                                    <%--                                简介内容--%>
-                                    <p>${pageScope.ftrq_content}</p>
-                                    <div class="row mt-3">
-                                        <%--    简介图片--%>
-                                        <div class="row mt-3">
-                                            <c:forEach var="image" items="${pageScope.ftrq_list}">
-                                                <div class="col-md-4 col-sm-6 mt-1">
-                                                    <div class="box-4">
-                                                        <img src="${image.getImg()}">
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -219,18 +168,17 @@
 </div>
 
 <!--Global Javascript -->
-<script src="js/jquery.min.js"></script>
-<script src="js/popper/popper.min.js"></script>
-<script src="js/tether.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.cookie.js"></script>
-<script src="js/jquery.validate.min.js"></script>
-<script src="js/chart.min.js"></script>
-<script src="js/front.js"></script>
+<script src="${path}js/jquery.min.js"></script>
+<script src="${path}js/popper/popper.min.js"></script>
+<script src="${path}js/tether.min.js"></script>
+<script src="${path}js/bootstrap.min.js"></script>
+<script src="${path}js/jquery.cookie.js"></script>
+<script src="${path}js/jquery.validate.min.js"></script>
+<script src="${path}js/chart.min.js"></script>
+<script src="${path}js/front.js"></script>
 
-<!--Core Javascript -->
-<script>
-</script>
+<script src="js/search.js"></script>
+<link rel="stylesheet" href="css/search.css">
 
 
 </body>

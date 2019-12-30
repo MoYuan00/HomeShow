@@ -1,5 +1,6 @@
 package servlets.message;
 
+import bean.Message;
 import util.C3P0JdbcUtil;
 import util.dataUrl;
 
@@ -24,33 +25,20 @@ public class addMessage extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
-        String title=request.getParameter("lTitle");
-        String content=request.getParameter("lContent");
-        String username = request.getParameter("lName");
-        String email = request.getParameter("lEmail");
-        String phonenum = request.getParameter("lNumber");
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        String title=request.getParameter("title");
+        String content=request.getParameter("content");
+
+        Message message = new Message();
+        message.setUser_id(user_id);
+        message.setTitle(title);
+        message.setContent(content);
+        message.addMessage();
+
+
         String jumpPath = request.getParameter("jumpPath");
-//        System.out.println(username + "  " + email + "\n" + title + " : " + content + "\n");
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        try{
-            conn = C3P0JdbcUtil.getConnection();
-            String query = "INSERT INTO t_message(title,content,username,email,phonenum,`time`) VALUES(?,?,?,?,?,NOW())";
-            pstmt = conn.prepareStatement(query);
-            pstmt.setString(1,title);
-            pstmt.setString(2,content);
-            pstmt.setString(3,username);
-            pstmt.setString(4,email);
-            pstmt.setString(5,phonenum);
-            pstmt.executeUpdate();
-            System.out.println("跳转到: " + jumpPath);
-            // if no error back to message
-            response.sendRedirect(jumpPath);
-        }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("add message error");
-        }finally {
-            C3P0JdbcUtil.release(conn, pstmt, null);
-        }
+        System.out.println("跳转到：" + jumpPath);
+        response.sendRedirect(jumpPath);
+
     }
 }

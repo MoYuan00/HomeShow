@@ -25,11 +25,20 @@
     <c:if test='${sessionScope.un == null  || !"admin".equals(sessionScope.un)}'>
         <li class="active"><a href="index.jsp"> <i class="fa fa-user-o"></i>首页</a></li>
         <li><a href="profile.jsp"> <i class="fa fa-user-o"></i>家乡简介</a></li>
-        <li><a href="tese.jsp"> <i class="fa fa-user-o"></i>特色介绍</a></li>
-        <li><a href="own.jsp"> <i class="fa fa-user-o"></i>个人简介</a></li>
+        <li>
+            <a href="#cc" aria-expanded="false" data-toggle="collapse" class="active">
+            <i class="fa fa-user-o"></i>特色简介</a>
+            <ul id="cc" class="collapse list-unstyled">
+                <li></li>
+                <li><a href="mj.jsp">美景简介</a></li>
+                <li><a href="food.jsp">美食简介</a></li>
+                <li><a href="ftrq.jsp">风土人情简介</a></li>
+            </ul>
+        </li>
+        <li><a href="own.jsp"> <i class="fa fa-user-o"></i>个人信息</a></li>
     </c:if>
-    <%--        如果是游客，并且登录了 就可以留言--%>
-    <c:if test='${sessionScope.un != null && !sessionScope.un.equals("admin")}'>
+    <%--        如果是游客 就可以留言--%>
+    <c:if test='${!sessionScope.un.equals("admin")}'>
         <li><a href="messageBoard.jsp"> <i class="fa fa-user-o"></i>游客留言</a></li>
     </c:if>
 

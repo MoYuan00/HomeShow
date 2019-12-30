@@ -143,7 +143,9 @@
                                         <div class="form-control pull-right">
                                             <div style="min-height: 200px">
                                                 头像
-                                                <img src="${user.portrait_image}" style="max-height: 180px;width: 100%">
+                                                <div class="avatar">
+                                                    <img class="img-fluid" src="${user.portrait_image}" style="max-height: 180px;width: 100%">
+                                                </div>
                                                 <form action="./updateUserPortraitImage" method="post" enctype="multipart/form-data">
                                                     <input type="hidden" name="id" value="${user.id}">
                                                     <input type="hidden" name="jumpPath" value="own.jsp">

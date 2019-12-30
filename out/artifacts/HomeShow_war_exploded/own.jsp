@@ -1,12 +1,25 @@
+<%@ page import="bean.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: -ZQ-
   Date: 2019/12/25
   Time: 23:22
-  To change this template use File | Settings | File Templates.
+  To change this template use FileUploader | Settings | FileUploader Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Integer userId = (Integer) session.getAttribute("userId");
+    if (userId == null) {// 如果没有登录
+        response.sendRedirect("./login.jsp");
+        return;
+    }
+    // 获取用户的所有信息
+    User user = new User();
+    user.setId(userId);
+    user = user.getUserInfoById();
+    pageContext.setAttribute("user", user);// 放入页面环境
+%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -116,7 +129,7 @@
     <div class="content-inner chart-cont">
 
         <!--***** CONTENT *****-->
-        <div class="row mt-2" id="card-prof">
+        <div class="row mt-2">
             <div class="col-md-9">
                 <div class="card hovercard">
                     <div class="tab" role="tabpanel">
@@ -124,8 +137,56 @@
                         <div class="tab-content tabs">
                             <h2>个人介绍</h2>
                             <div role="tabpanel" class="tab-pane fade show active" id="prof">
-                                <%--                                简介内容--%>
-                                个人介绍个人介绍 个人介绍
+                                <%--                                    将表单分成两半 -一栏是头像，一栏是其他信息--%>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-control pull-right">
+                                            <div style="min-height: 200px">
+                                                头像
+                                                <div class="avatar">
+                                                    <img class="img-fluid" src="${user.portrait_image}" style="max-height: 180px;width: 100%">
+                                                </div>
+                                                <form action="./updateUserPortraitImage" method="post" enctype="multipart/form-data">
+                                                    <input type="hidden" name="id" value="${user.id}">
+                                                    <input type="hidden" name="jumpPath" value="own.jsp">
+                                                    <input type="file" accept="image/jpeg,image/png" name="portrait_image">
+                                                    <button>点击保存头像</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <form action="./updateUserInfo" method="post">
+                                            <input type="hidden" name="id" value="${user.id}">
+                                            <input type="hidden" name="jumpPath" value="own.jsp">
+                                            <div class="form-control">
+                                                用户名:
+                                                <input name="username" value="${user.username}">
+                                            </div>
+                                            <div class="form-control">
+                                                密码:
+                                                <input type="password" name="password" value="${user.password}">
+                                            </div>
+                                            <div class="form-control">
+                                                年龄:
+                                                <input type="number" name="age" min="1" max="200" step="1" value="${user.age}">
+                                            </div>
+                                            <div class="form-control">
+                                                生日:
+                                                <input type="date" name="birthday" value="${user.birthday}">
+                                            </div>
+                                            <div class="form-control">
+                                                邮箱:
+                                                <input type="email" name="email" value="${user.email}">
+                                            </div>
+                                            <div class="form-control">
+                                                电话:
+                                                <input type="tel" name="tel" value="${user.tel}">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">保存信息</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
