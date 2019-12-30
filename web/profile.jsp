@@ -8,11 +8,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     request.setAttribute("path", basePath);
 
-    Profile profile = new Profile();
-    String content = profile.getJXJJProfile();
-    List<Images> replies = profile.getJXJJImages();
-    pageContext.setAttribute("content", content);
-    pageContext.setAttribute("list", replies);
+    List<Profile> profiles = Profile.getJXJJProfile();
+    pageContext.setAttribute("profiles", profiles);
 %>
 <!DOCTYPE html>
 <html>
@@ -72,6 +69,8 @@
                     </a>
                 </div>
             </div>
+            <%--            搜索条 --%>
+            <jsp:include page="search-bar.jsp"/>
             <%--            菜单的注册或者登陆按钮 --%>
             <jsp:include page="login-regiset-menu-item.jsp"/>
         </div>
@@ -98,40 +97,30 @@
             <div class="col-md-9">
                 <div class="card hovercard">
                     <div class="tab" role="tabpanel">
-                        <!-- Tab panes -->
-                        <div class="tab-content tabs">
-                            <h2>家乡简介</h2>
-                            <div role="tabpanel" class="tab-pane fade show active" id="prof">
-                                <%--                                简介内容--%>
-                                <p>${pageScope.content}</p>
-                                <div class="row mt-3">
-                                    <%--    简介图片--%>
-                                    <div class="row mt-3">
-<%--                                        <c:forEach var="image" items="${pageScope.list}">--%>
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="./img/1.png">
-                                                </div>
+                        <div class="tab" role="tabpanel">
+                            <h2 class="text-lg-center h2" style="margin: 10px 10px">家乡简介</h2>
+                            <!-- Tab panes -->
+                            <c:forEach var="profile" items="${profiles}" varStatus="status">
+                                <div class="tab-content tabs">
+                                    <h2>${status.index + 1}.${profile.title}</h2>
+                                    <div role="tabpanel" class="tab-pane fade show active" id="prof">
+                                            <%--                                简介内容--%>
+                                        <p id="text-context">${profile.content}</p>
+                                        <div class="row mt-3">
+                                                <%--    简介图片--%>
+                                            <div class="row mt-3">
+                                                <c:forEach var="image" items="${profile.imageList}">
+                                                    <div class="col-md-4 col-sm-6 mt-1">
+                                                        <div class="box-4">
+                                                            <img src="${image.img}">
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
                                             </div>
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="./img/2.png">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="./img/3.png">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="./img/4.png">
-                                                </div>
-                                            </div>
-<%--                                        </c:forEach>--%>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

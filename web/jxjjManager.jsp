@@ -1,14 +1,17 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: -ZQ-
+  Date: 2019/12/25
+  Time: 22:56
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.lang.*" %>
-<%@ page import="bean.Profile" %>
-<%@ page import="java.util.List" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     request.setAttribute("path", basePath);
 
-    List<Profile> profiles = Profile.getMJProfile();
-    pageContext.setAttribute("profiles", profiles);
 %>
 <!DOCTYPE html>
 <html>
@@ -19,8 +22,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
 
-    <title>美景简介</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <title>家乡简介管理</title>
+    <link rel="shortcut icon" href="${path}img/favicon.ico">
 
     <!-- global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
@@ -56,9 +59,10 @@
         <div class="container-fluid ">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
                 <div class="navbar-header">
-                    <a href="index.jsp" class="navbar-brand">
+                    <a href="${path}index.jsp" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down">家乡展示</div>
-                        <div class="brand-text brand-small"><img src="img/logo-icon.png" alt="Logo" class="img-fluid">
+                        <div class="brand-text brand-small"><img src="${path}img/logo-icon.png" alt="Logo"
+                                                                 class="img-fluid">
                         </div>
                     </a>
                     <a id="toggle-btn" href="#" class="menu-btn active">
@@ -68,8 +72,6 @@
                     </a>
                 </div>
             </div>
-            <%--            搜索条 --%>
-            <jsp:include page="search-bar.jsp"/>
             <%--            菜单的注册或者登陆按钮 --%>
             <jsp:include page="login-regiset-menu-item.jsp"/>
         </div>
@@ -91,35 +93,23 @@
     <div class="content-inner chart-cont">
 
         <!--***** CONTENT *****-->
-        <div class="row mt-2" id="card-prof">
+        <div class="row mt-2">
 
             <div class="col-md-9">
                 <div class="card hovercard">
-
                     <div class="tab" role="tabpanel">
-                        <h2 class="text-lg-center h2" style="margin: 10px 10px">美景简介</h2>
                         <!-- Tab panes -->
-                        <c:forEach var="profile" items="${profiles}" varStatus="status">
-                            <div class="tab-content tabs">
-                                <h2>${status.index + 1}.${profile.title}</h2>
-                                <div role="tabpanel" class="tab-pane fade show active" id="prof">
-                                        <%--                                简介内容--%>
-                                    <p id="text-context">${profile.content}</p>
-                                    <div class="row mt-3">
-                                            <%--    简介图片--%>
-                                        <div class="row mt-3">
-                                            <c:forEach var="image" items="${profile.imageList}">
-                                                <div class="col-md-4 col-sm-6 mt-1">
-                                                    <div class="box-4">
-                                                        <img src="${image.img}">
-                                                    </div>
-                                                </div>
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
+                        <h2>家乡简介管理</h2>
+                        <div class="pull-right">
+                            <jsp:include page="profile-add.jsp">
+                                <jsp:param name="jumpPath" value="jxjjManager.jsp"/>
+                                <jsp:param name="type" value="jxjj"/>
+                            </jsp:include>
+                        </div>
+                        <jsp:include page="manager-all.jsp">
+                            <jsp:param name="type" value="jxjj"/>
+                            <jsp:param name="jumpPath" value="jxjjManager.jsp"/>
+                        </jsp:include>
                     </div>
                 </div>
             </div>
@@ -129,7 +119,7 @@
 </div>
 
 <!--Global Javascript -->
-<script src="js/jquery.min.js"></script>
+<script src="${path}js/jquery.min.js"></script>
 <script src="${path}js/popper/popper.min.js"></script>
 <script src="${path}js/tether.min.js"></script>
 <script src="${path}js/bootstrap.min.js"></script>
@@ -137,8 +127,10 @@
 <script src="${path}js/jquery.validate.min.js"></script>
 <script src="${path}js/chart.min.js"></script>
 <script src="${path}js/front.js"></script>
-<script src="js/search.js"></script>
-<link rel="stylesheet" href="css/search.css">
+
+<!--Core Javascript -->
+<script>
+</script>
 
 
 </body>

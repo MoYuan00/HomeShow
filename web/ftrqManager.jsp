@@ -103,6 +103,12 @@
                     <div class="tab" role="tabpanel">
                         <!-- Tab panes -->
                         <h2>风土人情管理</h2>
+                        <div class="pull-right">
+                            <jsp:include page="profile-add.jsp">
+                                <jsp:param name="jumpPath" value="ftrqManager.jsp"/>
+                                <jsp:param name="type" value="ftrq"/>
+                            </jsp:include>
+                        </div>
                         <jsp:include page="manager-all.jsp">
                             <jsp:param name="type" value="ftrq"/>
                             <jsp:param name="jumpPath" value="ftrqManager.jsp"/>

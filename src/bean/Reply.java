@@ -2,7 +2,6 @@ package bean;
 
 import util.C3P0JdbcUtil;
 
-import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,14 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Reply {
-    private int replyid;
-    private int messageid;
+    private Integer replyid;
+    private Integer messageid;
+    private Integer user_id;
     private String title;
     private String content;
-    private String username;
-    private String email;
-    private String phonenum;
     private String time;
+
+    /**
+     * 回复信息的用户
+     */
+    private User user;
 
     /**
      * 通过id修改回复信息
@@ -87,9 +89,14 @@ public class Reply {
                 r.setTitle(rs_reply.getString("title"));
                 r.setContent(rs_reply.getString("content"));
                 r.setTime(rs_reply.getString("time"));
-                r.setUsername(rs_reply.getString("username"));
-                r.setEmail(rs_reply.getString("email"));
-                r.setPhonenum(rs_reply.getString("phonenum"));
+                r.setUser_id(rs_reply.getInt("user_id"));
+
+                // 获取用户信息
+                User user = new User();
+                user.setId(r.getUser_id());
+                user = user.getUserInfoById();
+                r.setUser(user);
+
                 replies.add(r);
             }
         }catch (Exception e) {
@@ -109,14 +116,12 @@ public class Reply {
         PreparedStatement pstmt = null;
         try{
             conn = C3P0JdbcUtil.getConnection();
-            String query = "INSERT INTO t_reply(messageid,title,content,username,email,phonenum,`time`) VALUES(?,?,?,?,?,?,NOW())";
+            String query = "INSERT INTO t_reply(messageid,title,content, user_id,`time`) VALUES(?,?,?,?,NOW())";
             pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, messageid);
             pstmt.setString(2, title);
             pstmt.setString(3, content);
-            pstmt.setString(4, username);
-            pstmt.setString(5, email);
-            pstmt.setString(6, phonenum);
+            pstmt.setInt(4, user_id);
             int re = pstmt.executeUpdate();
             if(re > 0){
                 return this;
@@ -131,7 +136,13 @@ public class Reply {
         return null;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getTime() {
         return time;
@@ -141,19 +152,19 @@ public class Reply {
         this.time = time;
     }
 
-    public int getReplyid() {
+    public Integer getReplyid() {
         return replyid;
     }
 
-    public void setReplyid(int replyid) {
+    public void setReplyid(Integer replyid) {
         this.replyid = replyid;
     }
 
-    public int getMessageid() {
+    public Integer getMessageid() {
         return messageid;
     }
 
-    public void setMessageid(int messageid) {
+    public void setMessageid(Integer messageid) {
         this.messageid = messageid;
     }
 
@@ -173,27 +184,12 @@ public class Reply {
         this.content = content;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhonenum() {
-        return phonenum;
-    }
-
-    public void setPhonenum(String phonenum) {
-        this.phonenum = phonenum;
-    }
 }

@@ -98,7 +98,13 @@
                 <div class="card hovercard">
                     <div class="tab" role="tabpanel">
                         <!-- Tab panes -->
-                            <h2>美食管理</h2>
+                        <h2>美食管理</h2>
+                        <div class="pull-right">
+                            <jsp:include page="profile-add.jsp">
+                                <jsp:param name="jumpPath" value="foodManager.jsp"/>
+                                <jsp:param name="type" value="food"/>
+                            </jsp:include>
+                        </div>
                         <jsp:include page="manager-all.jsp">
                             <jsp:param name="type" value="food"/>
                             <jsp:param name="jumpPath" value="foodManager.jsp"/>

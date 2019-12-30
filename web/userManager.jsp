@@ -30,7 +30,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
 
-    <title>美食管理</title>
+    <title>用户管理</title>
     <link rel="shortcut icon" href="${path}img/favicon.ico">
 
     <!-- global stylesheets -->

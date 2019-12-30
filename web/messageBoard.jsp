@@ -119,7 +119,7 @@
                                 <div class="modal-content">
                                     <!--***** USER INFO *****-->
                                     <div class="col-md-12">
-                                        <div class="card form" id="lform">
+                                        <div class="card form" >
                                             <div class="card-header">
                                                 <h3 style="display: inline"><i class="fa fa-commenting-o"></i>留言板</h3>
                                                 <button aria-hidden="true" data-dismiss="modal" class="close"
@@ -244,7 +244,7 @@
                                             <div id="faq-sub-cat${s.index}-${s_reply.replyid}"
                                                  class="panel-collapse collapse">
                                                 <div class="panel-body" style="padding-bottom: 0;">
-                                                    By: <a href="#">${s_reply.username}</a>
+                                                    By: <a href="#">${s_reply.user.username}</a>
                                                     at ${s_reply.time}
                                                 </div>
                                                 <div class="panel-body" style="padding-top: 0;">
@@ -278,8 +278,8 @@
                                                             </button>
                                                         </div>
                                                         <form action="${path}addReply" method="post">
-                                                            <input type="hidden" name="jumpPath"
-                                                                   value="messageBoard.jsp">
+                                                            <input type="hidden" name="jumpPath" value="messageBoard.jsp">
+                                                            <input type="hidden" name="user_id" value="${user.id}">
                                                             <input type="hidden" value="${s_message.id}"
                                                                    name="rmsgId">
                                                             <div class="form-group">
@@ -297,48 +297,6 @@
                                                                           rows="4" name="rContent"
                                                                           placeholder="回复内容"></textarea>
                                                             </div>
-
-                                                            <div class="row mt-3">
-                                                                <div class="col-md-12">
-                                                                    <div class="card-header">
-                                                                        <h3><i class="fa fa-user-circle"></i>
-                                                                            你的信息
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="row" style="margin-top: 20px;">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="name">名称</label>
-                                                                        <input type="text" class="form-control"
-                                                                               id="Name" name="rName"
-                                                                               aria-describedby="emailHelp"
-                                                                               placeholder="名称">
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="email">邮箱</label>
-                                                                        <input type="email" class="form-control"
-                                                                               id="Email" name="rEmail"
-                                                                               aria-describedby="emailHelp"
-                                                                               placeholder="邮箱">
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group">
-                                                                        <label for="name">电话号码</label>
-                                                                        <input type="tel"
-                                                                               class="form-control"
-                                                                               name="rNumber"
-                                                                               id="number"
-                                                                               aria-describedby="emailHelp"
-                                                                               placeholder="电话号码">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
                                                             <button type="submit"
                                                                     class="btn btn-general btn-blue mr-2">
                                                                 回复
@@ -380,32 +338,6 @@
 <script type="text/javascript" src="js/chart.min.js"></script>
 <script type="text/javascript" src="js/front.js"></script>
 
-<script>
-    <%--    这段代码其实就是当下滑了滚动条的时候，将信息标题固定到头部显示--%>
-    (function ($) {
-        var mn = $(".vert-tab");
-        var mns = "vert-tab-scrolled";
-        $(window).scroll(function () {
-            if ($(this).scrollTop() > $('header').height()) {
-                mn.addClass(mns);
-            } else {
-                mn.removeClass(mns);
-            }
-        });
-        $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: (target.offset().top - 22)
-                    }, 700, "easeInOutExpo");
-                    return false;
-                }
-            }
-        });
-    })(jQuery);
-</script>
 </body>
 
 </html>

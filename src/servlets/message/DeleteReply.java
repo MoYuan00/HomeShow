@@ -1,6 +1,5 @@
 package servlets.message;
 
-import bean.Message;
 import bean.Reply;
 
 import javax.servlet.ServletException;

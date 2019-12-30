@@ -44,6 +44,7 @@
                 <input type="hidden" name="jumpPath" value="${jumpPath}">
                 <input type="hidden" name="id" value="${profile.id}">
                 <button type="submit" class="btn btn-primary">保存修改</button>
+                <a class="btn btn-danger" href="./deleteProfile?id=${profile.id}&jumpPath=${jumpPath}">删除简介</a>
             </form>
             <div class="row mt-3">
                     <%--    简介图片--%>

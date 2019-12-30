@@ -20,11 +20,9 @@ public class AddReplyAction extends HttpServlet {
         System.out.println("/user/addReply");
         Reply r = new Reply();
         r.setMessageid(Integer.parseInt(request.getParameter("rmsgId")));
-        r.setUsername(request.getParameter("rName"));
-        r.setEmail(request.getParameter("rEmail"));
         r.setTitle(request.getParameter("rTitle"));
         r.setContent(request.getParameter("rContent"));
-        r.setPhonenum(request.getParameter("rNumber"));
+        r.setUser_id(Integer.parseInt(request.getParameter("user_id")));
         System.out.println("reply to " + r.getMessageid());
         r.addReply();
         String jumpPath = request.getParameter("jumpPath");
