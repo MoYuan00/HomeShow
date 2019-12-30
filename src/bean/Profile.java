@@ -16,12 +16,56 @@ public class Profile {
     public static final String FTRQ = "ftrq";
     private int id;
     private String content;
+    private String type;
     private String title;
 
     /**
-     * 一条简介对应的图片
+     * 一条简介对应的多张图片
      */
     private List<Images> imageList;
+
+    public void addProfileByType(String type){
+        System.out.println("Profile.addProfile()");
+        String query = "insert into t_profile (title, content, type) values " +
+                "(?, ?, ?)";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, this.title);
+            pstmt.setString(2, this.content);
+            pstmt.setString(3, type);
+            int re = pstmt.executeUpdate();
+            ResultSet resultSet =  pstmt.getGeneratedKeys();
+            if(resultSet.next()){
+                resultSet.getInt(1);
+            }
+            System.out.println("Profile.addProfile() 成功！");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt, null);
+        }
+    }
+
+    public void deleteProfile(){
+        System.out.println("Profile.deleteProfile()");
+        String query = "delete from t_profile where id=?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        try{
+            conn = C3P0JdbcUtil.getConnection();
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, this.id);
+            int re = pstmt.executeUpdate();
+            System.out.println("Profile.deleteProfile() 成功！");
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            C3P0JdbcUtil.release(conn, pstmt, null);
+        }
+    }
 
     /**
      * 更新简介的内容
@@ -86,7 +130,7 @@ public class Profile {
      * @param type
      * @return
      */
-    private static List<Profile> getProfileByType(String type){
+    public static List<Profile> getProfileByType(String type){
         String query = "SELECT * FROM t_profile where type = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -102,6 +146,7 @@ public class Profile {
                 profile.setContent(rs.getString("content"));
                 profile.setId(rs.getInt("id"));
                 profile.setTitle(rs.getString("title"));
+                profile.setType(rs.getString("type"));
 
                 // 获取 当前简介信息的所有图片
                 Images images = new Images();
@@ -144,6 +189,14 @@ public class Profile {
 
     public String getContent() {
         return content;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setContent(String content) {

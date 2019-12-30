@@ -8,11 +8,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     request.setAttribute("path", basePath);
 
-    Profile profile = new Profile();
-    String content = profile.getFoodProfile();
-    List<Images> replies = profile.getFoodImages();
-    pageContext.setAttribute("content", content);
-    pageContext.setAttribute("list", replies);
+    List<Profile> profiles = Profile.getFoodProfile();
+    pageContext.setAttribute("profiles", profiles);
 %>
 <!DOCTYPE html>
 <html>
@@ -100,26 +97,29 @@
             <div class="col-md-9">
                 <div class="card hovercard">
                     <div class="tab" role="tabpanel">
+                        <h2 class="text-lg-center h2" style="margin: 10px 10px">美食简介</h2>
                         <!-- Tab panes -->
-                        <div class="tab-content tabs">
-                            <h2>美食简介</h2>
-                            <div role="tabpanel" class="tab-pane fade show active" id="prof">
-                                <%--                                简介内容--%>
-                                <p>${pageScope.content}</p>
-                                <div class="row mt-3">
-                                    <%--    简介图片--%>
+                        <c:forEach var="profile" items="${profiles}" varStatus="status">
+                            <div class="tab-content tabs">
+                                <h2>${status.index + 1}.${profile.title}</h2>
+                                <div role="tabpanel" class="tab-pane fade show active" id="prof">
+                                        <%--                                简介内容--%>
+                                    <p id="text-context">${profile.content}</p>
                                     <div class="row mt-3">
-                                        <c:forEach var="image" items="${list}">
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="${image.img}">
+                                            <%--    简介图片--%>
+                                        <div class="row mt-3">
+                                            <c:forEach var="image" items="${profile.imageList}">
+                                                <div class="col-md-4 col-sm-6 mt-1">
+                                                    <div class="box-4">
+                                                        <img src="${image.img}">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
+                                            </c:forEach>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

@@ -16,9 +16,9 @@ public class UpdateUserInfo extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("/updateUserInfo");
         Integer id = Integer.parseInt(req.getParameter("id").trim());
-        String  username =  req.getParameter("username").trim();
+        String  username =  req.getParameter("username");
         String password = req.getParameter("password").trim();
-        int age = Integer.parseInt(req.getParameter("age").trim());
+        Integer age = Integer.parseInt(req.getParameter("age").trim());
         String birthday = req.getParameter("birthday").trim();
         String email = req.getParameter("email").trim();
         String tel = req.getParameter("tel").trim();
@@ -30,6 +30,7 @@ public class UpdateUserInfo extends HttpServlet {
         user.setBirthday(birthday);
         user.setTel(tel);
         user.setEmail(email);
+        System.out.println("更新为: " + user);
         user.updateUserInfoById();
         String jumpPath = req.getParameter("jumpPath");
         System.out.println("跳转到: " + jumpPath);

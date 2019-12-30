@@ -94,18 +94,6 @@
 
     <!--***** SIDE NAVBAR 左边的导航栏 *****-->
     <nav class="side-navbar">
-        <!-- 左边导航栏的头像部分 -->
-        <div class="sidebar-header d-flex align-items-center">
-            <div class="avatar">
-                <div class="photo">
-                    <img src="${user.portrait_image}" alt="..." class="img-fluid rounded-circle"
-                         style="height: 50px; width: 50px;">
-
-                </div>
-            </div>
-            <hr>
-        </div>
-
         <!-- 左边的导航栏的导航部分 -->
         <jsp:include page="nav-ul.jsp"/>
     </nav>
@@ -198,7 +186,6 @@
                     <c:forEach var="s_message" items="${messages}" varStatus="status">
                         <div class="faq-cont" id="MSG${status.index}">
                             <div class="faq-heading-cont">
-                                <!--<h3><i class="fa fa-power-off"></i> Basic Question</h3>-->
                             </div>
                                 <%--                            一条留言--%>
                             <div class="panel-group" id="accordion-${status.index}">
@@ -207,9 +194,9 @@
                                 <div class="panel panel-default panel-faq">
                                     <div class="panel-heading">
                                         <a data-toggle="collapse" data-parent="#accordion-${status.index}"
-                                           href="#faq-sub-cat${s_message.getId()}">
+                                           href="#faq-sub-cat${s_message.id}">
                                             <h4 class="panel-title"><i class="fa fa-dot-circle-o"></i>
-                                                    ${status.index+1}) ${s_message.getTitle()}
+                                                    ${status.index+1}) ${s_message.title}
                                                 <span class="pull-right"><i class="fa fa-plus"></i></span>
                                             </h4>
                                         </a>
@@ -220,8 +207,9 @@
                                                 <li class="list-group-item">
                                                     <div class="row">
                                                         <div class="col-md-2">
-                                                            <img src="${s_message.user.portrait_image}" class="img-circle img-fluid "
-                                                                 alt="头像" /></div>
+                                                            <img src="${s_message.user.portrait_image}"
+                                                                 class="img-circle img-fluid "
+                                                                 alt="头像"/></div>
                                                         <div class=" col-md-10">
                                                             <div>
                                                                 <div class="mic-info">
@@ -284,14 +272,15 @@
                                                         <div class="card-header">
                                                             <h3 style="display: inline">
                                                                 <i class="fa fa-commenting-o"></i>
-                                                                回复ta: ${s_message.getTitle()}</h3>
+                                                                回复ta: ${s_message.title}</h3>
                                                             <button aria-hidden="true" data-dismiss="modal"
                                                                     class="close" type="button">×
                                                             </button>
                                                         </div>
                                                         <form action="${path}addReply" method="post">
-                                                            <input type="hidden" name="jumpPath" value="messageBoard.jsp">
-                                                            <input type="hidden" value="${s_message.getId()}"
+                                                            <input type="hidden" name="jumpPath"
+                                                                   value="messageBoard.jsp">
+                                                            <input type="hidden" value="${s_message.id}"
                                                                    name="rmsgId">
                                                             <div class="form-group">
                                                                 <label for="title">标题</label>

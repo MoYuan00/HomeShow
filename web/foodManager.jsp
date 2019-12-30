@@ -7,19 +7,10 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="Java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.lang.*" %>
-<%@ page import="bean.Profile" %>
-<%@ page import="java.util.List" %>
-<%@ page import="bean.Images" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
     request.setAttribute("path", basePath);
-
-    Profile profile = new Profile();
-    String content = profile.getFoodProfile();
-    List<Images> replies = profile.getFoodImages();
-    pageContext.setAttribute("content", content);
-    pageContext.setAttribute("list", replies);
 %>
 <!DOCTYPE html>
 <html>
@@ -107,63 +98,11 @@
                 <div class="card hovercard">
                     <div class="tab" role="tabpanel">
                         <!-- Tab panes -->
-                        <div class="tab-content tabs">
                             <h2>美食管理</h2>
-                            <div>
-                                <form action="${path}/addImages" method="post" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlFile1">添加图片：</label>
-                                        <input type="hidden" name="type" value="food">
-                                        <input type="hidden" name="jumpPath" value="foodManager.jsp">
-                                        <input type="file" name="uploadFile" class="form-control-file"
-                                               id="exampleFormControlFile1"
-                                               accept="image/png, image/jpeg, image/gif, image/jpg">
-                                        <button type="submit" class="btn btn-primary">提交选择的文件</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div role="tabpanel" class="tab-pane fade show active" id="prof">
-                                <%--                                简介内容--%>
-                                <%--                                <p>${pageScope.content}</p>--%>
-                                <form action="${path}updateContent" method="post">
-                                    <div class="form-group">
-                                        <label for="textarea">简介内容:</label>
-                                        <textarea name="content" id="textarea" class="form-control-range text-area"
-                                                  rows="7" cols="58">${pageScope.content}</textarea>
-                                    </div>
-                                    <input type="hidden" name="jumpPath" value="foodManager.jsp">
-                                    <input type="hidden" name="type" value="food">
-                                    <button type="submit" class="btn btn-primary">保存简介内容修改</button>
-                                </form>
-                                <div class="row mt-3">
-                                    <%--    简介图片--%>
-                                    <div class="row mt-3">
-                                        <c:forEach var="image" items="${pageScope.list}">
-                                            <div class="col-md-4 col-sm-6 mt-1">
-                                                <div class="box-4">
-                                                    <img src="${path}${image.getImg()}">
-                                                    <div class="box-4-content">
-                                                            <%-- 添加删除按钮 --%>
-                                                        <h3 class="text-center">
-                                                            <form action="${path}/deleteImages">
-                                                                <input type="hidden" name="id"
-                                                                       value="${image.getId()}">
-                                                                <input type="hidden" name="jumpPath"
-                                                                       value="foodManager.jsp">
-                                                                <button type="submit" class="btn btn-danger">删除图片
-                                                                </button>
-                                                            </form>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <jsp:include page="manager-all.jsp">
+                            <jsp:param name="type" value="food"/>
+                            <jsp:param name="jumpPath" value="foodManager.jsp"/>
+                        </jsp:include>
                     </div>
                 </div>
             </div>

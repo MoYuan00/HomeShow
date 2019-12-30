@@ -111,13 +111,16 @@
                                             <div style="min-height: 200px">
                                                 头像
                                                 <div class="avatar">
-                                                    <img class="img-fluid" src="${user.portrait_image}" style="max-height: 180px;width: 100%">
+                                                    <img class="img-fluid" src="${user.portrait_image}"
+                                                         style="max-height: 180px;width: 100%">
                                                 </div>
-                                                <form action="./updateUserPortraitImage" method="post" enctype="multipart/form-data">
+                                                <form action="./updateUserPortraitImage" method="post"
+                                                      enctype="multipart/form-data">
                                                     <input type="hidden" name="id" value="${user.id}">
                                                     <input type="hidden" name="jumpPath" value="own.jsp">
-                                                    <input type="file" accept="image/jpeg,image/png" name="portrait_image">
-                                                    <button>点击保存头像</button>
+                                                    <input type="file" class="form-control-file" accept="image/jpeg,image/png"
+                                                           name="portrait_image">
+                                                    <button class="btn btn-primary">点击保存头像</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -126,29 +129,33 @@
                                         <form action="./updateUserInfo" method="post">
                                             <input type="hidden" name="id" value="${user.id}">
                                             <input type="hidden" name="jumpPath" value="own.jsp">
-                                            <div class="form-control">
+                                            <div  >
                                                 用户名:
-                                                <input name="username" value="${user.username}">
+                                                <input type="text" name="username"
+                                                       class="form-control disabled"
+                                                        ${"admin".equals(user.username) ? "readonly" : ''}
+                                                       value="${user.username}">
                                             </div>
-                                            <div class="form-control">
+                                            <div  >
                                                 密码:
-                                                <input type="password" name="password" value="${user.password}">
+                                                <input class="form-control" type="password" name="password" value="${user.password}">
                                             </div>
-                                            <div class="form-control">
+                                            <div  >
                                                 年龄:
-                                                <input type="number" name="age" min="1" max="200" step="1" value="${user.age}">
+                                                <input class="form-control" type="number" name="age" min="1" max="200" step="1"
+                                                       value="${user.age}">
                                             </div>
-                                            <div class="form-control">
+                                            <div >
                                                 生日:
-                                                <input type="date" name="birthday" value="${user.birthday}">
+                                                <input class="form-control" type="date" name="birthday" value="${user.birthday}">
                                             </div>
-                                            <div class="form-control">
+                                            <div  >
                                                 邮箱:
-                                                <input type="email" name="email" value="${user.email}">
+                                                <input class="form-control" type="email" name="email" value="${user.email}">
                                             </div>
-                                            <div class="form-control">
+                                            <div >
                                                 电话:
-                                                <input type="tel" name="tel" value="${user.tel}">
+                                                <input class="form-control" type="tel" name="tel" value="${user.tel}">
                                             </div>
                                             <button type="submit" class="btn btn-primary">保存信息</button>
                                         </form>

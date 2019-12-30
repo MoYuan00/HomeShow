@@ -96,32 +96,32 @@
             <div class="col-md-9">
                 <div class="card hovercard">
 
-                    <div class="tab" role="tabpanel">
-                        <h2 class="text-lg-center h2" style="margin: 10px 10px">美景简介</h2>
-                        <!-- Tab panes -->
-                        <c:forEach var="profile" items="${profiles}" varStatus="status">
-                            <div class="tab-content tabs">
-                                <h2>${status.index + 1}.${profile.title}</h2>
-                                <div role="tabpanel" class="tab-pane fade show active" id="prof">
-                                        <%--                                简介内容--%>
-                                    <p id="text-context">${profile.content}</p>
+                <div class="tab" role="tabpanel">
+                    <h2 class="text-lg-center h2" style="margin: 10px 10px">美景简介</h2>
+                    <!-- Tab panes -->
+                    <c:forEach var="profile" items="${profiles}" varStatus="status">
+                        <div class="tab-content tabs">
+                            <h2>${status.index + 1}.${profile.title}</h2>
+                            <div role="tabpanel" class="tab-pane fade show active" id="prof">
+                                    <%--                                简介内容--%>
+                                <p id="text-context">${profile.content}</p>
+                                <div class="row mt-3">
+                                        <%--    简介图片--%>
                                     <div class="row mt-3">
-                                            <%--    简介图片--%>
-                                        <div class="row mt-3">
-                                            <c:forEach var="image" items="${profile.imageList}">
-                                                <div class="col-md-4 col-sm-6 mt-1">
-                                                    <div class="box-4">
-                                                        <img src="${image.img}">
-                                                    </div>
+                                        <c:forEach var="image" items="${profile.imageList}">
+                                            <div class="col-md-4 col-sm-6 mt-1">
+                                                <div class="box-4">
+                                                    <img src="${image.img}">
                                                 </div>
-                                            </c:forEach>
-                                        </div>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </div>
+                        </div>
+                    </c:forEach>
                 </div>
+            </div>
             </div>
         </div>
     </div>

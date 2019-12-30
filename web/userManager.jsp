@@ -200,23 +200,15 @@
                                                         <td>${user.id}</td>
                                                         <td>
                                                             <%-- 如果是管理员就不能修改名称 --%>
-                                                            <c:choose>
-                                                                <c:when test='${"admin".equals(user.username)}'>
-                                                                    <input type="text" name="username"
-                                                                           class="disabled" disabled
-                                                                           value="${user.username}">
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <input type="text" name="username"
-                                                                           value="${user.username}">
-                                                                </c:otherwise>
-                                                            </c:choose>
-
+                                                                <input type="text" name="username"
+                                                                       class="form-control disabled"
+                                                                    ${"admin".equals(user.username) ? "readonly" : ''}
+                                                                       value="${user.username}">
                                                         </td>
-                                                        <td><input type="text" name="password"
+                                                        <td><input class="form-control" type="text" name="password"
                                                                    value="${user.password}"></td>
                                                         <td>
-                                                            <button class="btn btn-white">保存</button>
+                                                            <button class="btn btn-white" type="submit">保存</button>
                                                         </td>
                                                     </form>
                                                     <td>

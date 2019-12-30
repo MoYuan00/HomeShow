@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  *
@@ -74,7 +75,7 @@ public class User {
                 user.setTel(re.getString("tel"));
                 user.setBirthday(re.getString("birthday"));
             }
-            System.out.println("User.getUserInfoById() 成功！");
+            System.out.println("User.getUserInfoById() 成功！" + user);
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -244,6 +245,20 @@ public class User {
         }
         System.out.println("添加失败！");
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
+                .add("id=" + id)
+                .add("username='" + username + "'")
+                .add("password='" + password + "'")
+                .add("age=" + age)
+                .add("birthday='" + birthday + "'")
+                .add("email='" + email + "'")
+                .add("tel='" + tel + "'")
+                .add("portrait_image='" + portrait_image + "'")
+                .toString();
     }
 
     public Integer getId() {

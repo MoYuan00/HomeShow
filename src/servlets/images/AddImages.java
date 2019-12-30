@@ -31,7 +31,7 @@ public class AddImages extends HttpServlet {
             Images images = new Images();
             String type = items.get("type").toString();
             images.setImg(path);
-            images.setProfile_id(Integer.parseInt(items.get("id").toString().trim()));
+            images.setProfile_id(Integer.parseInt(items.get("profile_id").toString().trim()));
             images.addImage();
         }
         String jumpPath = items.get("jumpPath").toString();
