@@ -72,49 +72,10 @@
                     </a>
                 </div>
             </div>
-            <%--            固定在头部的搜索框 - 搜索当前页面的内容--%>
-            <div class="form-inline fixed-top row justify-content-center " style=" top:10px;">
-                <div class="col-md-6 col-sm-9  col-lg-8 text-center" style="background:#ffffff33; padding: 10px; border-radius: 30px" >
-                    <input class="form-control text-right" id="key" type="text" placeholder="查找"  />
-                    <button type="button" class="btn btn-sm btn-white "  onclick="next()"  >下一个</button>
-                    <button type="button" class="btn btn-sm btn-white"  onclick="previous()"  >上一个</button>
-                </div>
-            </div>
-            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <c:choose>
-                    <c:when test="${sessionScope.un != null}">
-                        <li>
-                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content">
-                                        <i class="fa fa-power-off"></i>登出
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li>
-                            <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content">
-                                        <i class="fa fa-power-off"></i>登录
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="register.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-power-off"></i>
-                                        注册
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+            <%--            搜索条 --%>
+            <jsp:include page="search-bar.jsp"/>
+            <%--            菜单的注册或者登陆按钮 --%>
+            <jsp:include page="login-regiset-menu-item.jsp"/>
         </div>
     </nav>
 </header>

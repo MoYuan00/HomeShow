@@ -64,13 +64,6 @@
 ====================================================-->
 <header class="header">
     <nav class="navbar navbar-expand-lg ">
-        <%--        头部导航栏的搜索框--%>
-<%--        <div class="search-box">--%>
-<%--            <button class="dismiss"><i class="icon-close"></i></button>--%>
-<%--            <form id="searchForm" action="#" role="search">--%>
-<%--                <input type="search" placeholder="Search Now" class="form-control">--%>
-<%--            </form>--%>
-<%--        </div>--%>
         <div class="container-fluid ">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
                 <div class="navbar-header">
@@ -88,35 +81,8 @@
                     </a>
                 </div>
             </div>
-            <%--            头部导航栏右边的头像点击下拉菜单--%>
-            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <%--                搜索框点击区域--%>
-<%--                <li class="nav-item d-flex align-items-center">--%>
-<%--                    <a id="search" class="nav-link" href="#"><i class="icon-search"></i></a></li>--%>
-                <!-- 头像-->
-                <li class="nav-item dropdown">
-                    <a id="profile" class="nav-link logout" data-target="#"
-                       href="profile.jsp" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="false">
-                        <div class="photo">
-                            <img src="${user.portrait_image}" alt="头像" class="img-fluid rounded-circle"
-                                 style="height: 50px; width: 50px;">
-                        </div>
-                    </a>
-                    <%--                    点击头像的下拉菜单--%>
-                    <ul aria-labelledby="profile" class="dropdown-menu profile">
-                        <li>
-                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-power-off"></i>
-                                        退出登录
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <%--            菜单的注册或者登陆按钮 --%>
+            <jsp:include page="login-regiset-menu-item.jsp"/>
         </div>
     </nav>
 </header>

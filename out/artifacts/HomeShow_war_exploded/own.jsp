@@ -75,41 +75,8 @@
                     </a>
                 </div>
             </div>
-            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <c:choose>
-                    <c:when test="${sessionScope.un != null}">
-                        <li>
-                            <a rel="nofollow" href="${path}user/logout" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content">
-                                        <i class="fa fa-power-off"></i>登出
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </c:when>
-                    <c:otherwise>
-                        <li>
-                            <a rel="nofollow" href="${path}login.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content">
-                                        <i class="fa fa-power-off"></i>登录
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="register.jsp" class="dropdown-item">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-power-off"></i>
-                                        注册
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                    </c:otherwise>
-                </c:choose>
-            </ul>
+            <%--            菜单的注册或者登陆按钮 --%>
+            <jsp:include page="login-regiset-menu-item.jsp"/>
         </div>
     </nav>
 </header>
